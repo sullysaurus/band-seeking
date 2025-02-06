@@ -22,7 +22,7 @@ default: &default
 
 development:
   <<: *default
-  database: band_seeking_development
+  database: bandseeking_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -56,7 +56,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: band_seeking_test
+  database: bandseeking_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,20 +79,5 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    database: band_seeking_production
-    username: band_seeking
-    password: <%= ENV["BAND_SEEKING_DATABASE_PASSWORD"] %>
-  cache:
-    <<: *primary_production
-    database: band_seeking_production_cache
-    migrations_paths: db/cache_migrate
-  queue:
-    <<: *primary_production
-    database: band_seeking_production_queue
-    migrations_paths: db/queue_migrate
-  cable:
-    <<: *primary_production
-    database: band_seeking_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
