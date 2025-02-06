@@ -1,0 +1,41 @@
+<div class="columns">
+  <div class="column is-one-quarter">
+    <%= render 'filters' %>
+  </div>
+
+  <div class="column">
+    <div class="cards">
+      <% @musicians.each do |musician| %>
+        <div class="card">
+          <div class="card-image">
+            <% if musician.avatar.attached? %>
+              <figure class="image">
+                <%= image_tag musician.avatar %>
+              </figure>
+            <% end %>
+          </div>
+
+          <div class="card-content">
+            <div class="content">
+              <h2 class="title is-4"><%= musician.email %></h2>
+              
+              <% if musician.instruments_played.present? %>
+                <p><strong>Plays:</strong> <%= musician.instruments_played_list %></p>
+              <% end %>
+              
+              <% if musician.looking_for.present? %>
+                <p><strong>Looking For:</strong> <%= musician.looking_for %></p>
+              <% end %>
+              
+              <% if musician.city.present? || musician.state.present? %>
+                <p><strong>Location:</strong> <%= [musician.city, musician.state].compact.join(", ") %></p>
+              <% end %>
+            </div>
+
+            <%= link_to "View Profile", profile_path(musician), class: "button neon-button is-fullwidth" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> 

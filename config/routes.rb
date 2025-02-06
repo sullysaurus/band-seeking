@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   resource :profile, only: [:show, :edit, :update]
   resources :bands
+  resources :musicians, only: [:index]
   root 'home#index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

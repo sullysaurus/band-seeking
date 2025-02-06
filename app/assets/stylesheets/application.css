@@ -700,3 +700,55 @@ a:hover {
   width: 1.2em;
   height: 1.2em;
 }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  border: 4px solid black !important;
+  border-radius: 0 !important;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-image {
+  border-bottom: 4px solid black;
+}
+
+.card-image img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1.5rem !important;
+  background: white !important;
+}
+
+.card .title {
+  margin-bottom: 1rem !important;
+  font-family: monospace !important;
+}
+
+.card .content {
+  margin-bottom: 1.5rem;
+  font-family: monospace !important;
+}
+
+.card .content p {
+  margin-bottom: 0.5rem;
+}
+
+.card .button {
+  margin-top: auto;
+}
