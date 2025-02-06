@@ -59,6 +59,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_135636) do
     t.string "bandcamp_url"
     t.string "songkick_id"
     t.string "bandsintown_id"
+    t.string "band_type"
     t.index ["slug"], name: "index_bands_on_slug", unique: true
     t.index ["user_id"], name: "index_bands_on_user_id"
   end
@@ -81,6 +82,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_06_135636) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "instruments_played", default: [], array: true
+    t.string "looking_for"
+    t.string "city"
+    t.string "state"
+    t.string "instagram_handle"
+    t.string "website_url"
+    t.text "spotify_embed"
+    t.text "youtube_embed"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -10,6 +10,17 @@
     <%= form_with(url: root_path, method: :get, local: true, class: "filters-form") do |f| %>
       <div class="filter-group">
         <div class="field">
+          <%= f.label :band_type, "Band Type", class: "label" %>
+          <div class="control">
+            <%= f.select :band_type,
+              options_for_select(Band::BAND_TYPES, params[:band_type]),
+              { include_blank: "Any Type" },
+              { class: "input" }
+            %>
+          </div>
+        </div>
+
+        <div class="field">
           <%= f.label :instrument, "Looking For", class: "label" %>
           <div class="control">
             <%= f.select :instrument,

@@ -1,24 +1,25 @@
 class HomeController < ApplicationController
   def index
-    @bands = Band.all.order(created_at: :desc)
-    
-    # Filter by instrument
-    if params[:instrument].present?
-      instrument = params[:instrument].downcase
-      @bands = @bands.where("seeking_instruments::text LIKE ?", "%#{instrument}%")
-    end
-
-    # Filter by location
-    if params[:city].present?
-      @bands = @bands.where("LOWER(city) LIKE ?", "%#{params[:city].downcase}%")
-    end
-    
-    if params[:state].present?
-      @bands = @bands.where("LOWER(state) LIKE ?", "%#{params[:state].downcase}%")
-    end
-
-    # Get unique cities and states for dropdowns
+    @bands = Band.all
     @cities = Band.distinct.pluck(:city).compact.sort
     @states = Band.distinct.pluck(:state).compact.sort
+
+    if params[:band_type].present?
+      @bands = @bands.where(band_type: params[:band_type])
+    end
+
+    if params[:instrument].present?
+      @bands = @bands.where("seeking_instruments @> ARRAY[?]::varchar[]", [params[:instrument]])
+    end
+
+    if params[:city].present?
+      @bands = @bands.where(city: params[:city])
+    end
+
+    if params[:state].present?
+      @bands = @bands.where(state: params[:state])
+    end
+
+    @bands = @bands.order(created_at: :desc)
   end
 end 

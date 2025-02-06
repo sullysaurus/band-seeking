@@ -1,14 +1,57 @@
 <div class="box">
-  <h1 class="title"><%= "#{@profile.first_name} #{@profile.last_name}" %></h1>
-  
-  <div class="content">
-    <h3 class="subtitle">About</h3>
-    <p><%= @profile.bio %></p>
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar %>
+      <% end %>
+    </div>
+    
+    <div class="column">
+      <h1 class="title"><%= @user.email %></h1>
+      
+      <div class="content">
+        <% if @user.instruments_played.present? %>
+          <p><strong>Plays:</strong> <%= @user.instruments_played_list %></p>
+        <% end %>
+        
+        <% if @user.looking_for.present? %>
+          <p><strong>Looking For:</strong> <%= @user.looking_for %></p>
+        <% end %>
+        
+        <% if @user.city.present? || @user.state.present? %>
+          <p><strong>Location:</strong> <%= [@user.city, @user.state].compact.join(", ") %></p>
+        <% end %>
+        
+        <% if @user.instagram_handle.present? %>
+          <p>
+            <strong>Instagram:</strong>
+            <%= link_to "@#{@user.instagram_handle}", "https://instagram.com/#{@user.instagram_handle}" %>
+          </p>
+        <% end %>
+        
+        <% if @user.website_url.present? %>
+          <p>
+            <strong>Website:</strong>
+            <%= link_to @user.website_url, @user.website_url %>
+          </p>
+        <% end %>
+      </div>
+
+      <%= link_to "Edit Profile", edit_profile_path, class: "button neon-button" %>
+    </div>
   </div>
 
-  <% if current_user == @profile.user %>
-    <div class="buttons">
-      <%= link_to 'Edit Profile', edit_profile_path, class: 'button neon-button' %>
+  <% if @user.spotify_embed.present? %>
+    <div class="mt-6">
+      <h2 class="title is-4">Music</h2>
+      <%= @user.spotify_embed.html_safe %>
+    </div>
+  <% end %>
+
+  <% if @user.youtube_embed.present? %>
+    <div class="mt-6">
+      <h2 class="title is-4">Videos</h2>
+      <%= @user.youtube_embed.html_safe %>
     </div>
   <% end %>
 

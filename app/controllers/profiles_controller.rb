@@ -1,19 +1,23 @@
 class ProfilesController < ApplicationController
+  include ApplicationHelper
   before_action :authenticate_user!
   before_action :set_profile
   before_action :ensure_profile_exists
 
   def show
+    @user = current_user
   end
 
   def edit
+    @user = current_user
   end
 
   def update
-    if @profile.update(profile_params)
-      redirect_to @profile, notice: 'Profile was successfully updated.'
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to profile_path, notice: 'Profile was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +35,17 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def profile_params
-    params.require(:profile).permit(:first_name, :last_name, :bio)
+  def user_params
+    params.require(:user).permit(
+      :avatar,
+      :city,
+      :state,
+      :looking_for,
+      :instagram_handle,
+      :website_url,
+      :spotify_embed,
+      :youtube_embed,
+      instruments_played: []
+    )
   end
 end 

@@ -8,7 +8,18 @@ class User < ApplicationRecord
   has_many :bands, dependent: :destroy
   accepts_nested_attributes_for :profile
   
+  has_one_attached :avatar
+  
+  LOOKING_FOR = ["Cover Band", "Original Band", "Either"].freeze
+
+  validates :looking_for, inclusion: { in: LOOKING_FOR }, allow_nil: true
+  validates :state, length: { is: 2 }, allow_blank: true
+  
   after_create :create_profile
+
+  def instruments_played_list
+    instruments_played.join(", ") if instruments_played.present?
+  end
 
   private
 
