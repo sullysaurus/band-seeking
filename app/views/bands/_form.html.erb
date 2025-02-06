@@ -1,0 +1,117 @@
+<%= form_with(model: band, local: true, data: { controller: "image-cropper" }) do |f| %>
+  <% if band.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(band.errors.count, "error") %> prohibited this band from being saved:</h2>
+      <ul>
+        <% band.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :header_image, class: "label" %>
+    <div class="control">
+      <%= f.file_field :header_image, class: "input", accept: 'image/png,image/jpeg', direct_upload: true, data: { action: "change->image-cropper#preview" } %>
+      <%= f.hidden_field :cropped_image_data %>
+    </div>
+    <% if band.header_image.attached? %>
+      <div class="mt-2">
+        <p>Current image:</p>
+        <%= image_tag band.header_image, class: "preview-image" %>
+      </div>
+    <% end %>
+    <p class="help">Maximum file size: 5MB. Supported formats: PNG, JPEG</p>
+  </div>
+
+  <div class="field">
+    <%= f.label :name, class: "label" %>
+    <div class="control">
+      <%= f.text_field :name, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :city, class: "label" %>
+    <div class="control">
+      <%= f.text_field :city, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :state, class: "label" %>
+    <div class="control">
+      <%= f.text_field :state, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :seeking_instruments, "Instruments Needed", class: "label" %>
+    <div class="control instruments-grid">
+      <% Band::INSTRUMENTS.each do |instrument| %>
+        <label class="checkbox">
+          <%= check_box_tag 'band[seeking_instruments][]', instrument, band.seeking_instruments&.include?(instrument) %>
+          <span><%= instrument.titleize %></span>
+        </label>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :instagram_handle, class: "label" %>
+    <div class="control">
+      <%= f.text_field :instagram_handle, class: "input", placeholder: "@yourhandle" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :website_url, "Website (optional)", class: "label" %>
+    <div class="control">
+      <%= f.text_field :website_url, class: "input", placeholder: "https://your-website.com" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :bandcamp_url, "Bandcamp URL (optional)", class: "label" %>
+    <div class="control">
+      <%= f.text_field :bandcamp_url, class: "input", placeholder: "https://yourband.bandcamp.com" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :spotify_url, "Spotify Embed URL", class: "label" %>
+    <div class="control">
+      <%= f.text_field :spotify_url, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :youtube_url, "YouTube Video URL", class: "label" %>
+    <div class="control">
+      <%= f.text_field :youtube_url, class: "input" %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :songkick_id, "Songkick Artist ID (optional)", class: "label" %>
+    <div class="control">
+      <%= f.text_field :songkick_id, class: "input", placeholder: "Your Songkick Artist ID" %>
+    </div>
+    <p class="help">Find your ID in your Songkick artist page URL (e.g., songkick.com/artists/123456-artist-name)</p>
+  </div>
+
+  <div class="field">
+    <%= f.label :bandsintown_id, "Bandsintown Artist Name (optional)", class: "label" %>
+    <div class="control">
+      <%= f.text_field :bandsintown_id, class: "input", placeholder: "Your Bandsintown Artist Name" %>
+    </div>
+    <p class="help">Use your exact artist name from Bandsintown</p>
+  </div>
+
+  <div class="field">
+    <%= f.submit class: "button is-fullwidth neon-button" %>
+  </div>
+<% end %>
+
+<%= render 'image_cropper_modal' %> 

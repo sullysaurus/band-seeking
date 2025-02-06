@@ -13,3 +13,550 @@
  *= require_tree .
  *= require_self
  */
+
+/* Reset and base styles */
+body {
+  background: white;
+  color: black;
+  font-family: monospace;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation */
+.navbar {
+  padding: 1rem !important;
+  border-bottom: 4px solid black !important;
+  background: black !important;
+  margin-bottom: 2rem !important;
+}
+
+.navbar-item {
+  font-family: monospace !important;
+  color: white !important;
+  background: black !important;
+}
+
+.navbar-item:hover {
+  background: black !important;
+  color: #01FF00 !important;
+}
+
+.navbar-menu {
+  background: black !important;
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.navbar .button {
+  margin: 0 0.5rem;
+}
+
+.navbar-end {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Containers and boxes */
+.box {
+  background: white;
+  border: 4px solid black;
+  border-radius: 0 !important;
+  box-shadow: 8px 8px 0 black !important;
+  margin: 2rem 0;
+  padding: 2rem;
+}
+
+/* Typography */
+.title {
+  font-family: monospace;
+  font-size: 2.5rem !important;
+  text-transform: uppercase;
+  border-bottom: 4px solid black;
+  padding-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: monospace;
+  font-weight: bold !important;
+}
+
+/* Buttons */
+.button {
+  background-color: white !important;
+  color: black !important;
+  border: 4px solid black !important;
+  font-family: monospace !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.button:hover {
+  background-color: black !important;
+  color: white !important;
+}
+
+/* Form elements */
+.input, .textarea {
+  background: white !important;
+  border: 4px solid black !important;
+  border-radius: 0 !important;
+  font-family: monospace !important;
+  box-shadow: 4px 4px 0 black !important;
+}
+
+.input:focus, .textarea:focus {
+  box-shadow: 6px 6px 0 black !important;
+  border-color: black !important;
+}
+
+.label {
+  font-family: monospace;
+  text-transform: uppercase;
+  font-weight: bold !important;
+}
+
+/* Notifications */
+.notification {
+  background: white !important;
+  border: 4px solid black !important;
+  border-radius: 0 !important;
+  color: black !important;
+  margin: 1rem;
+}
+
+.notification.is-danger {
+  background: white !important;
+  border-color: red !important;
+  color: red !important;
+}
+
+.notification .delete {
+  background: black !important;
+}
+
+.notification .delete:hover {
+  background: red !important;
+}
+
+/* Content areas */
+.content {
+  font-family: monospace;
+}
+
+.section {
+  padding: 2rem;
+}
+
+/* Links */
+a {
+  color: black;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #666;
+}
+
+/* Error messages */
+.error-messages {
+  border: 4px solid red;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.error-messages ul {
+  list-style-type: square;
+  margin-left: 2rem;
+  color: red;
+}
+
+/* Authentication styles */
+.auth-box {
+  max-width: 400px;
+  margin: 2rem auto !important;
+}
+
+.auth-box .title {
+  text-align: center;
+  margin-bottom: 2rem !important;
+}
+
+.auth-box .field {
+  margin-bottom: 1.5rem;
+}
+
+.auth-box .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.auth-box input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 3px solid black;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.auth-box input[type="checkbox"]:checked {
+  background: black;
+  position: relative;
+}
+
+.auth-box input[type="checkbox"]:checked::after {
+  content: "✓";
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+}
+
+.auth-links {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 4px solid black;
+  text-align: center;
+}
+
+.auth-links a {
+  display: block;
+  margin: 0.5rem 0;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.auth-links a:hover {
+  background: black;
+  color: white;
+}
+
+/* Make sure error messages match the brutalist style */
+#error_explanation {
+  border: 4px solid black;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  background: white;
+}
+
+#error_explanation h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+#error_explanation ul {
+  list-style-type: square;
+  margin-left: 2rem;
+}
+
+.field_with_errors .input {
+  border-color: red !important;
+}
+
+/* Band styles */
+.band-card {
+  margin-bottom: 1rem;
+}
+
+.seeking-section,
+.links-section,
+.embed-section {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 4px solid black;
+}
+
+.tags {
+  margin-top: 0.5rem !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 0.5rem !important;
+}
+
+.tag {
+  background-color: #01FF00 !important;
+  color: black !important;
+  border: 2px solid black !important;
+  font-family: monospace !important;
+  font-weight: bold !important;
+  border-radius: 0 !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0.25rem !important;
+  text-transform: uppercase !important;
+}
+
+.tag:hover {
+  background-color: black !important;
+  color: #01FF00 !important;
+}
+
+.bands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.checkbox {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#custom-links .control {
+  margin-bottom: 0.5rem;
+}
+
+.embed-section iframe {
+  border: 2px solid black;
+  margin-top: 1rem;
+}
+
+.band-header-image {
+  margin: -1.25rem -1.25rem 1.25rem -1.25rem;
+  border-bottom: 4px solid black;
+}
+
+.band-header-image img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Image cropper styles */
+.image-container {
+  max-height: 60vh;
+  overflow: hidden;
+}
+
+#cropperImage {
+  max-width: 100%;
+  max-height: 60vh;
+}
+
+.preview-image {
+  max-width: 300px;
+  border: 2px solid black;
+  margin-top: 0.5rem;
+}
+
+.modal-card {
+  border: 4px solid black !important;
+  border-radius: 0 !important;
+}
+
+.modal-card-head,
+.modal-card-foot {
+  background: white !important;
+  border-radius: 0 !important;
+}
+
+.modal-card-head {
+  border-bottom: 4px solid black !important;
+}
+
+.modal-card-foot {
+  border-top: 4px solid black !important;
+}
+
+.neon-button {
+  background-color: #01FF00 !important;
+  color: black !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  border: 4px solid black !important;
+  transition: all 0.3s ease !important;
+  height: auto !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.neon-button:hover {
+  background-color: black !important;
+  color: #01FF00 !important;
+  box-shadow: 0 0 10px #01FF00 !important;
+}
+
+.navbar .neon-button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.instruments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.links-section .buttons {
+  gap: 1rem;
+}
+
+.links-section .button {
+  min-width: 150px;
+}
+
+.gigs-section {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 4px solid black;
+}
+
+.songkick-widget,
+.bandsintown-widget {
+  margin-top: 1rem;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Override widget styles to match theme */
+.bit-widget {
+  font-family: monospace !important;
+}
+
+.bit-widget .bit-button {
+  background-color: #01FF00 !important;
+  color: black !important;
+  border: 2px solid black !important;
+  border-radius: 0 !important;
+}
+
+.bit-widget .bit-button:hover {
+  background-color: black !important;
+  color: #01FF00 !important;
+}
+
+.embed-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 4px solid black;
+}
+
+.embed-section .subtitle {
+  margin-bottom: 1rem !important;
+}
+
+/* Songkick widget customization */
+.songkick-widget {
+  width: 100% !important;
+  margin: 0 !important;
+  font-family: monospace !important;
+}
+
+/* Bandsintown widget customization */
+.bit-widget {
+  font-family: monospace !important;
+  max-width: 100% !important;
+}
+
+.bit-widget .bit-button {
+  background-color: #01FF00 !important;
+  color: black !important;
+  border: 2px solid black !important;
+  border-radius: 0 !important;
+  font-family: monospace !important;
+}
+
+.bit-widget .bit-button:hover {
+  background-color: black !important;
+  color: #01FF00 !important;
+}
+
+.bands-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.band-card {
+  display: flex;
+  flex-direction: column;
+  border: 4px solid black !important;
+  padding: 0 !important;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.band-card:hover {
+  transform: translateY(-5px);
+}
+
+.band-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 4px solid black;
+}
+
+.band-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.band-card .subtitle {
+  padding: 1rem;
+  margin: 0 !important;
+  border-bottom: 4px solid black;
+}
+
+.band-card .subtitle a {
+  color: black;
+  text-decoration: none;
+}
+
+.band-card .subtitle a:hover {
+  color: #01FF00;
+}
+
+.band-card .location {
+  padding: 1rem;
+  margin: 0;
+  font-family: monospace;
+}
+
+.band-card .tags {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.band-card-links {
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.band-card-links .button {
+  font-size: 0.8rem;
+}
+
+.band-card .neon-button {
+  margin: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bands-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}

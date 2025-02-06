@@ -56,4 +56,5 @@ group :development do
 end
 
 gem 'devise'
+gem 'active_storage_validations'
 

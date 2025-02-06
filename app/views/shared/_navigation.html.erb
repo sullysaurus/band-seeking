@@ -1,0 +1,17 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to "BandSeeking", root_path, class: "navbar-item" %>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <% if user_signed_in? %>
+        <%= link_to "Bands", bands_path, class: "navbar-item" %>
+        <%= link_to "Profile", profile_path, class: "navbar-item" %>
+        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "button" %>
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path, class: "button" %>
+      <% end %>
+    </div>
+  </div>
+</nav> 

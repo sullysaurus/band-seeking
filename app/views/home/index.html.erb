@@ -1,12 +1,59 @@
-<div class="home-container">
-  <h1>Welcome to Our App</h1>
+<div class="box">
+  <h1 class="title">Welcome to BandSeeking</h1>
   
   <% if user_signed_in? %>
-    <p>Welcome back, <%= current_user.profile&.first_name || current_user.email %>!</p>
-    <%= link_to 'View Profile', profile_path, class: 'btn btn-primary' %>
+    <div class="buttons mb-4">
+      <%= link_to 'View Profile', profile_path, class: 'button neon-button' %>
+      <%= link_to 'Create Band', new_band_path, class: 'button neon-button' %>
+    </div>
   <% else %>
-    <p>Please sign in to access your profile</p>
-    <%= link_to 'Sign In', new_user_session_path, class: 'btn btn-primary' %>
-    <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-secondary' %>
+    <div class="buttons mb-4">
+      <%= link_to 'Sign In', new_user_session_path, class: 'button neon-button' %>
+      <%= link_to 'Sign Up', new_user_registration_path, class: 'button neon-button' %>
+    </div>
+  <% end %>
+
+  <% if @bands.any? %>
+    <div class="bands-grid">
+      <% @bands.each do |band| %>
+        <div class="box band-card">
+          <% if band.header_image.attached? %>
+            <div class="band-card-image">
+              <%= image_tag band.header_image %>
+            </div>
+          <% end %>
+          
+          <h2 class="subtitle"><%= link_to band.name, band_path(band) %></h2>
+          
+          <p class="location">
+            <strong><%= "#{band.city}, #{band.state}" %></strong>
+          </p>
+
+          <div class="tags">
+            <% band.seeking_instruments.each do |instrument| %>
+              <span class="tag"><%= instrument.titleize %></span>
+            <% end %>
+          </div>
+
+          <div class="band-card-links">
+            <% if band.instagram_handle.present? %>
+              <%= link_to "Instagram", "https://instagram.com/#{band.instagram_handle}", class: "button is-small", target: "_blank" %>
+            <% end %>
+            
+            <% if band.website_url.present? %>
+              <%= link_to "Website", band.website_url, class: "button is-small", target: "_blank" %>
+            <% end %>
+            
+            <% if band.bandcamp_url.present? %>
+              <%= link_to "Bandcamp", band.bandcamp_url, class: "button is-small", target: "_blank" %>
+            <% end %>
+          </div>
+
+          <%= link_to 'View Details', band_path(band), class: "button neon-button is-fullwidth mt-3" %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="has-text-centered">No bands yet! Be the first to create one.</p>
   <% end %>
 </div> 

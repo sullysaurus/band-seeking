@@ -1,0 +1,8 @@
+<div class="box">
+  <h1 class="title">Edit Band: <%= @band.name %></h1>
+  <%= render 'form', band: @band %>
+
+  <div class="buttons mt-4">
+    <%= link_to 'Back to Band', band_path(@band), class: 'button' %>
+  </div>
+</div> 

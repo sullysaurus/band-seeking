@@ -1,0 +1,23 @@
+<div class="box">
+  <h1 class="title">Bands</h1>
+
+  <% if user_signed_in? %>
+    <div class="buttons">
+      <%= link_to 'Create New Band', new_band_path, class: "button neon-button" %>
+    </div>
+  <% end %>
+
+  <div class="bands-grid">
+    <% @bands.each do |band| %>
+      <div class="box band-card">
+        <h2 class="subtitle"><%= link_to band.name, band_path(band) %></h2>
+        <p><%= "#{band.city}, #{band.state}" %></p>
+        <div class="tags">
+          <% band.seeking_instruments.each do |instrument| %>
+            <span class="tag"><%= instrument.titleize %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div> 
