@@ -1,0 +1,12 @@
+<div class="profile-container">
+  <h1><%= "#{@profile.first_name} #{@profile.last_name}" %></h1>
+  
+  <div class="profile-details">
+    <h3>About</h3>
+    <p><%= @profile.bio %></p>
+  </div>
+
+  <% if current_user == @profile.user %>
+    <%= link_to 'Edit Profile', edit_profile_path, class: 'btn btn-primary' %>
+  <% end %>
+</div> 
