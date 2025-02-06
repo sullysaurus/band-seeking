@@ -62,7 +62,7 @@ class BandsController < ApplicationController
   private
 
   def set_band
-    @band = Band.find(params[:id])
+    @band = Band.find_by!(slug: params[:id])
   end
 
   def authorize_user!

@@ -2,31 +2,18 @@ class Band < ApplicationRecord
   belongs_to :user
   has_one_attached :header_image
   
-  INSTRUMENTS = [
-    "Lead Guitar",
-    "Rhythm Guitar",
-    "Bass",
-    "Drums",
-    "Keys",
-    "Vocals",
-    "Backing Vocals",
-    "Synth",
-    "Mandolin",
-    "Sax",
-    "Flute",
-    "Strings"
-  ].freeze
+  INSTRUMENTS = ["Guitar", "Bass", "Drums", "Vocals", "Keys", "Other"].freeze
 
-  BAND_TYPES = ["Cover", "Original"].freeze
+  BAND_TYPES = ["Cover Band", "Original Band"].freeze
 
   serialize :seeking_instruments, coder: JSON
 
   validates :name, presence: true
   validates :city, presence: true
-  validates :state, presence: true
+  validates :state, length: { is: 2 }, allow_blank: true
   validates :seeking_instruments, presence: true
   validates :instagram_handle, format: { with: /\A[a-zA-Z0-9._]{1,30}\z/, message: "must be a valid Instagram handle" }, allow_blank: true
-  validates :slug, presence: true, uniqueness: true
+  validates :slug, uniqueness: true, allow_nil: true
   validates :songkick_id, format: { with: /\A\d*\z/, message: "must be a valid Songkick ID" }, allow_blank: true
   validates :band_type, inclusion: { in: BAND_TYPES }, allow_nil: true
   
