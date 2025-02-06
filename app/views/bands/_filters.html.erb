@@ -1,4 +1,4 @@
-<div class="filters-box">
+<div class="box filters-box">
   <button class="filter-toggle button is-fullwidth mb-3" data-action="toggle-filters">
     <span>Show Filters</span>
     <span class="icon">
@@ -7,25 +7,28 @@
   </button>
 
   <div id="filtersContent" class="is-hidden-mobile">
-    <%= form_with(url: root_path, method: :get, local: true, class: "filters-form") do |f| %>
+    <%= form_with(url: bands_path, method: :get, local: true, class: "filters-form") do |f| %>
       <div class="filter-group">
+        <div class="field">
+          <%= f.label :seeking, "Seeking", class: "label" %>
+          <div class="control">
+            <div class="checkboxes-grid">
+              <%= f.collection_check_boxes :seeking, Band::INSTRUMENTS.map { |i| [i, i.titleize] }, :first, :second do |b| %>
+                <div class="checkbox-item">
+                  <%= b.check_box %>
+                  <%= b.label %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
         <div class="field">
           <%= f.label :band_type, "Band Type", class: "label" %>
           <div class="control">
             <%= f.select :band_type,
               options_for_select(Band::BAND_TYPES, params[:band_type]),
               { include_blank: "Any Type" },
-              { class: "input" }
-            %>
-          </div>
-        </div>
-
-        <div class="field">
-          <%= f.label :instrument, "Looking For", class: "label" %>
-          <div class="control">
-            <%= f.select :instrument,
-              options_for_select(Band::INSTRUMENTS.map(&:titleize), params[:instrument]),
-              { include_blank: "Any Instrument" },
               { class: "input" }
             %>
           </div>
@@ -56,7 +59,7 @@
 
       <div class="filter-actions">
         <%= f.submit "Apply Filters", class: "button neon-button" %>
-        <%= link_to "Clear Filters", root_path, class: "button" %>
+        <%= link_to "Clear Filters", bands_path, class: "button" %>
       </div>
     <% end %>
   </div>

@@ -1,49 +1,36 @@
-<div class="box">
-  <h1 class="title">Welcome to BandSeeking</h1>
-
-  <%= render 'filters' %>
-
-  <% if @bands.any? %>
-    <div class="bands-grid">
-      <% @bands.each do |band| %>
-        <div class="box band-card">
-          <% if band.header_image.attached? %>
-            <div class="band-card-image">
-              <%= image_tag band.header_image %>
+<div class="hero is-fullheight-with-navbar">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered is-vcentered">
+        <div class="column is-5">
+          <%= link_to bands_path, class: "mega-card" do %>
+            <div class="box">
+              <div class="mega-card-content">
+                <span class="icon is-large">
+                  <i class="fas fa-guitar fa-4x"></i>
+                </span>
+                <h2 class="title is-1">Find Bands</h2>
+                <p class="subtitle is-4">Browse bands looking for new members</p>
+              </div>
             </div>
           <% end %>
-          
-          <h2 class="subtitle"><%= link_to band.name, band_path(band) %></h2>
-          
-          <p class="location">
-            <strong><%= "#{band.city}, #{band.state}" %></strong>
-          </p>
-
-          <div class="tags">
-            <% band.seeking_instruments.each do |instrument| %>
-              <span class="tag"><%= instrument.titleize %></span>
-            <% end %>
-          </div>
-
-          <div class="band-card-links">
-            <% if band.instagram_handle.present? %>
-              <%= link_to "Instagram", "https://instagram.com/#{band.instagram_handle}", class: "button is-small", target: "_blank" %>
-            <% end %>
-            
-            <% if band.website_url.present? %>
-              <%= link_to "Website", band.website_url, class: "button is-small", target: "_blank" %>
-            <% end %>
-            
-            <% if band.bandcamp_url.present? %>
-              <%= link_to "Bandcamp", band.bandcamp_url, class: "button is-small", target: "_blank" %>
-            <% end %>
-          </div>
-
-          <%= link_to 'View Details', band_path(band), class: "button neon-button is-fullwidth mt-3" %>
         </div>
-      <% end %>
+
+        <div class="column is-5">
+          <%= link_to musicians_path, class: "mega-card" do %>
+            <div class="box">
+              <div class="mega-card-content">
+                <span class="icon is-large">
+                  <i class="fas fa-microphone fa-4x"></i>
+                </span>
+                <h2 class="title is-1">Find Musicians</h2>
+                <p class="subtitle is-4">Browse musicians looking for bands</p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% else %>
-    <p class="has-text-centered">No bands found matching your filters.</p>
-  <% end %>
-</div> 
+  </div>
+</div>
+

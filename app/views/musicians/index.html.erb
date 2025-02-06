@@ -17,7 +17,7 @@
 
           <div class="card-content">
             <div class="content">
-              <h2 class="title is-4"><%= musician.email %></h2>
+              <h2 class="title is-4">@<%= musician.username %></h2>
               
               <% if musician.instruments_played.present? %>
                 <p><strong>Plays:</strong> <%= musician.instruments_played_list %></p>
@@ -32,7 +32,7 @@
               <% end %>
             </div>
 
-            <%= link_to "View Profile", profile_path(musician), class: "button neon-button is-fullwidth" %>
+            <%= link_to "View Profile", musician_path(musician), class: "button neon-button is-fullwidth" %>
           </div>
         </div>
       <% end %>

@@ -18,6 +18,7 @@ User.destroy_all
 users = 10.times.map do |i|
   user = User.create!(
     email: "user#{i+1}@example.com",
+    username: "musician#{i+1}",
     password: 'password123',
     password_confirmation: 'password123',
     instruments_played: Band::INSTRUMENTS.sample(rand(1..3)),

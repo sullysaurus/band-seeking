@@ -1,10 +1,30 @@
 class BandsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_band, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_owner, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @bands = Band.all.order(created_at: :desc)
+    @bands = Band.all
+    
+    if params[:seeking].present?
+      seeking = params[:seeking].is_a?(Array) ? params[:seeking] : [params[:seeking]]
+      @bands = @bands.where("seeking_instruments && ARRAY[?]::varchar[]", seeking)
+    end
+
+    if params[:band_type].present?
+      @bands = @bands.where(band_type: params[:band_type])
+    end
+
+    if params[:city].present?
+      @bands = @bands.where(city: params[:city])
+    end
+
+    if params[:state].present?
+      @bands = @bands.where(state: params[:state])
+    end
+
+    @cities = Band.where.not(city: [nil, '']).distinct.pluck(:city).sort || []
+    @states = Band.where.not(state: [nil, '']).distinct.pluck(:state).sort || []
   end
 
   def show
@@ -42,20 +62,19 @@ class BandsController < ApplicationController
   private
 
   def set_band
-    @band = Band.find_by!(slug: params[:id])
+    @band = Band.find(params[:id])
   end
 
-  def ensure_owner
-    unless @band.user == current_user
+  def authorize_user!
+    unless current_user == @band.user
       redirect_to bands_path, alert: 'You are not authorized to perform this action.'
     end
   end
 
   def band_params
-    params.require(:band).permit(
-      :name, :city, :state, :band_type, :spotify_url, :youtube_url, :header_image,
-      :instagram_handle, :website_url, :bandcamp_url, :songkick_id, :bandsintown_id,
-      seeking_instruments: []
-    )
+    params.require(:band).permit(:name, :band_type, :city, :state, :header_image,
+                               :instagram_handle, :website_url, :bandcamp_url,
+                               :spotify_url, :songkick_id, :bandsintown_id,
+                               seeking_instruments: [])
   end
 end 

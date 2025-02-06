@@ -1,23 +1,41 @@
-<div class="box">
-  <h1 class="title">Bands</h1>
+<div class="columns">
+  <div class="column is-one-quarter">
+    <%= render 'filters' %>
+  </div>
 
-  <% if user_signed_in? %>
-    <div class="buttons">
-      <%= link_to 'Create New Band', new_band_path, class: "button neon-button" %>
-    </div>
-  <% end %>
+  <div class="column">
+    <div class="cards">
+      <% @bands.each do |band| %>
+        <div class="card">
+          <div class="card-image">
+            <% if band.header_image.attached? %>
+              <figure class="image">
+                <%= image_tag band.header_image %>
+              </figure>
+            <% end %>
+          </div>
 
-  <div class="bands-grid">
-    <% @bands.each do |band| %>
-      <div class="box band-card">
-        <h2 class="subtitle"><%= link_to band.name, band_path(band) %></h2>
-        <p><%= "#{band.city}, #{band.state}" %></p>
-        <div class="tags">
-          <% band.seeking_instruments.each do |instrument| %>
-            <span class="tag"><%= instrument.titleize %></span>
-          <% end %>
+          <div class="card-content">
+            <div class="content">
+              <h2 class="title is-4"><%= band.name %></h2>
+              
+              <% if band.band_type.present? %>
+                <p><strong>Type:</strong> <%= band.band_type %></p>
+              <% end %>
+              
+              <% if band.seeking_instruments.present? %>
+                <p><strong>Seeking:</strong> <%= band.seeking_instruments.join(", ") %></p>
+              <% end %>
+              
+              <% if band.city.present? || band.state.present? %>
+                <p><strong>Location:</strong> <%= [band.city, band.state].compact.join(", ") %></p>
+              <% end %>
+            </div>
+
+            <%= link_to "View Band", band_path(band), class: "button neon-button is-fullwidth" %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div> 

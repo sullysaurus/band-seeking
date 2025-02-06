@@ -2,32 +2,32 @@
   <div class="navbar-brand">
     <%= link_to "BandSeeking", root_path, class: "navbar-item" %>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navMenu" class="navbar-menu">
+  <div class="navbar-menu">
     <div class="navbar-start">
-      <%= link_to "Bands", root_path, class: "navbar-item" %>
+      <%= link_to "Bands", bands_path, class: "navbar-item" %>
       <%= link_to "Musicians", musicians_path, class: "navbar-item" %>
     </div>
 
     <div class="navbar-end">
-      <% if user_signed_in? %>
-        <%= link_to "Profile", profile_path, class: "navbar-item" %>
-        <%= link_to "Create Band", new_band_path, class: "navbar-item" %>
-        <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "button navbar-item" %>
-      <% else %>
-        <div class="navbar-item">
-          <div class="buttons">
-            <%= link_to "Sign Up", new_user_registration_path, class: "button" %>
-            <%= link_to "Sign In", new_user_session_path, class: "button" %>
-          </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if user_signed_in? %>
+            <%= link_to "My Profile", profile_path, class: "button" %>
+            <%= link_to "Post a Band", new_band_path, class: "button neon-button" %>
+            <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "button" %>
+          <% else %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "button neon-button" %>
+            <%= link_to "Log In", new_user_session_path, class: "button" %>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </nav> 

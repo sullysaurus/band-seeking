@@ -12,6 +12,9 @@ class User < ApplicationRecord
   
   LOOKING_FOR = ["Cover Band", "Original Band", "Either"].freeze
 
+  validates :username, presence: true, uniqueness: true, 
+    format: { with: /\A[a-zA-Z0-9_-]+\z/, message: "can only contain letters, numbers, underscores and dashes" },
+    length: { minimum: 3, maximum: 30 }
   validates :looking_for, inclusion: { in: LOOKING_FOR }, allow_nil: true
   validates :state, length: { is: 2 }, allow_blank: true
   
@@ -19,6 +22,10 @@ class User < ApplicationRecord
 
   def instruments_played_list
     instruments_played.join(", ") if instruments_played.present?
+  end
+
+  def to_param
+    username
   end
 
   private
