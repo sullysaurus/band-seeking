@@ -72,4 +72,25 @@ document.addEventListener('turbo:load', () => {
     const event = new CustomEvent('crop', { bubbles: true });
     cropperModal.dispatchEvent(event);
   });
+
+  // Initialize all sections as collapsed except the first one
+  const sections = document.querySelectorAll('.section-title.collapsible');
+  if (sections.length > 0) {
+    sections[0].classList.add('active');
+    sections[0].nextElementSibling.classList.add('active');
+  }
+
+  // Add click handlers to all collapsible sections
+  sections.forEach(section => {
+    section.addEventListener('click', function() {
+      this.classList.toggle('active');
+      const content = this.nextElementSibling;
+      content.classList.toggle('active');
+
+      // Smooth scroll to section if it's being opened
+      if (content.classList.contains('active')) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 }); 

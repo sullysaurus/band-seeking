@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
   
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   resources :bands
   resources :musicians, only: [:index, :show], param: :username
   resource :profile, only: [:show, :edit, :update]

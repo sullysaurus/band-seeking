@@ -1,13 +1,21 @@
 <div class="box auth-box">
-  <h1 class="title">Sign Up</h1>
+  <h2 class="title">Sign up</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
+      <%= f.label :username, class: "label" %>
+      <div class="control">
+        <%= f.text_field :username, class: "input", placeholder: "Choose a unique username" %>
+      </div>
+      <p class="help">Letters, numbers, underscores and dashes only (minimum 3 characters)</p>
+    </div>
+
+    <div class="field">
       <%= f.label :email, class: "label" %>
       <div class="control">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+        <%= f.email_field :email, autocomplete: "email", class: "input" %>
       </div>
     </div>
 
@@ -17,7 +25,7 @@
         <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
       </div>
       <% if @minimum_password_length %>
-        <p class="help">Minimum <%= @minimum_password_length %> characters</p>
+        <p class="help">(<%= @minimum_password_length %> characters minimum)</p>
       <% end %>
     </div>
 
@@ -28,12 +36,10 @@
       </div>
     </div>
 
-    <div class="field">
-      <%= f.submit "Sign up", class: "button neon-button is-fullwidth" %>
+    <div class="actions">
+      <%= f.submit "Sign up", class: "button neon-button" %>
     </div>
   <% end %>
 
-  <div class="auth-links">
-    <%= render "devise/shared/links" %>
-  </div>
+  <%= render "devise/shared/links" %>
 </div>

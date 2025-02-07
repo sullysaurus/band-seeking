@@ -1060,74 +1060,153 @@ a:hover {
 }
 
 .header-box {
-  border: 6px solid black;
+  border: 4px solid black;
   padding: 4rem 2rem;
   text-align: center;
   margin: 2rem auto;
   max-width: 900px;
-  background: white;
 }
 
 .mega-title {
-  font-family: "Roboto Mono", monospace !important;
-  font-size: 5.5rem !important;
-  font-weight: 900 !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 5rem !important;
+  font-weight: bold !important;
   margin-bottom: 1rem !important;
-  letter-spacing: -2px;
-  text-transform: uppercase;
-  color: #000;
-  -webkit-text-stroke: 2px black;
-  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  letter-spacing: -1px;
 }
 
 .subtitle-text {
-  font-family: "Roboto Mono", monospace !important;
-  font-size: 2rem;
-  font-weight: 700 !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 1.75rem;
   margin-bottom: 3rem !important;
-  letter-spacing: -1px;
-  color: #000;
 }
 
 .cta-buttons {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   justify-content: center;
   margin-top: 2rem;
 }
 
 .button-outline {
-  font-family: "Roboto Mono", monospace !important;
+  font-family: "Courier New", monospace !important;
   font-size: 1.25rem;
-  padding: 1.25rem 2.5rem;
-  border: 6px solid black;
+  padding: 1rem 2rem;
+  border: 4px solid black;
   background: white;
   color: black;
   text-decoration: none;
   transition: all 0.3s ease;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .button-outline:hover {
   transform: translate(-4px, -4px);
-  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .button-outline.neon {
   background: #39ff14;
-  border-color: black;
 }
 
 .button-outline.neon:hover {
   background: white;
   border-color: #39ff14;
-  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3),
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2),
               0 0 10px #fff,
               0 0 20px #fff,
               0 0 30px #39ff14,
               0 0 40px #39ff14;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap');
+.profile-box {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.profile-section {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.profile-section:last-child {
+  border-bottom: none;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-family: "Roboto Mono", monospace !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  margin-bottom: 1.5rem !important;
+  color: #000;
+  display: inline-block;
+  background: #39ff14;
+  padding: 0.25rem 0.75rem;
+}
+
+.checkboxes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file.is-boxed {
+  width: 100%;
+}
+
+.file-cta {
+  border: 2px solid black;
+  transition: all 0.3s ease;
+}
+
+.file-cta:hover {
+  background: #39ff14;
+  border-color: black;
+}
+
+.textarea {
+  font-family: "Roboto Mono", monospace !important;
+  border: 2px solid black;
+}
+
+.section-title.collapsible {
+  width: 100%;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.section-title.collapsible:hover {
+  transform: translateX(4px);
+}
+
+.section-title .icon {
+  transition: transform 0.3s ease;
+}
+
+.section-title.active .icon {
+  transform: rotate(180deg);
+}
+
+.section-content {
+  display: none;
+  padding-top: 1.5rem;
+}
+
+.section-content.active {
+  display: block;
+}
