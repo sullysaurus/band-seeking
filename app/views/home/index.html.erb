@@ -1,33 +1,13 @@
 <div class="hero">
   <div class="hero-body">
     <div class="container">
-      <div class="columns is-centered is-vcentered">
-        <div class="column is-5">
-          <%= link_to bands_path, class: "mega-card" do %>
-            <div class="box">
-              <div class="mega-card-content">
-                <span class="icon is-large">
-                  <i class="fas fa-guitar fa-4x"></i>
-                </span>
-                <h2 class="title is-1">Find Bands</h2>
-                <p class="subtitle is-4">Browse bands looking for new members</p>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="column is-5">
-          <%= link_to musicians_path, class: "mega-card" do %>
-            <div class="box">
-              <div class="mega-card-content">
-                <span class="icon is-large">
-                  <i class="fas fa-microphone fa-4x"></i>
-                </span>
-                <h2 class="title is-1">Find Musicians</h2>
-                <p class="subtitle is-4">Browse musicians looking for bands</p>
-              </div>
-            </div>
-          <% end %>
+      <div class="header-box">
+        <h1 class="mega-title">Band Seeking</h1>
+        <p class="subtitle-text">Find your musical match</p>
+        
+        <div class="cta-buttons">
+          <%= link_to "FIND MUSICIANS", musicians_path, class: "button-outline neon" %>
+          <%= link_to "FIND BANDS", bands_path, class: "button-outline" %>
         </div>
       </div>
     </div>
