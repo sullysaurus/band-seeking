@@ -73,6 +73,7 @@ class Band < ApplicationRecord
 
   before_validation :generate_slug
   before_validation :clean_instagram_handle
+  before_validation :clean_seeking_instruments
 
   # Add index for faster searching
   scope :seeking_instrument, ->(instrument) {
@@ -114,6 +115,11 @@ class Band < ApplicationRecord
   def clean_instagram_handle
     return if instagram_handle.blank?
     instagram_handle.gsub!('@', '')
+  end
+
+  def clean_seeking_instruments
+    # Remove empty strings and nil values from seeking_instruments
+    self.seeking_instruments = seeking_instruments.reject(&:blank?) if seeking_instruments.present?
   end
 
   def valid_seeking_instruments
