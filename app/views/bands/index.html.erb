@@ -4,38 +4,44 @@
   </div>
 
   <div class="column">
-    <div class="cards">
-      <% @bands.each do |band| %>
-        <div class="card">
-          <div class="card-image">
-            <% if band.header_image.attached? %>
-              <figure class="image">
-                <%= image_tag band.header_image %>
-              </figure>
-            <% end %>
-          </div>
-
-          <div class="card-content">
-            <div class="content">
-              <h2 class="title is-4"><%= band.name %></h2>
-              
-              <% if band.band_type.present? %>
-                <p><strong>Type:</strong> <%= band.band_type %></p>
-              <% end %>
-              
-              <% if band.seeking_instruments.present? %>
-                <p><strong>Seeking:</strong> <%= band.seeking_instruments.join(", ") %></p>
-              <% end %>
-              
-              <% if band.city.present? || band.state.present? %>
-                <p><strong>Location:</strong> <%= [band.city, band.state].compact.join(", ") %></p>
+    <% if @bands.any? %>
+      <div class="cards">
+        <% @bands.each do |band| %>
+          <div class="card">
+            <div class="card-image">
+              <% if band.header_image.attached? %>
+                <figure class="image">
+                  <%= image_tag band.header_image %>
+                </figure>
               <% end %>
             </div>
 
-            <%= link_to "View Band", band_path(band), class: "button neon-button is-fullwidth" %>
+            <div class="card-content">
+              <div class="content">
+                <h2 class="title is-4"><%= band.name %></h2>
+                
+                <% if band.band_type.present? %>
+                  <p><strong>Type:</strong> <%= band.band_type %></p>
+                <% end %>
+                
+                <% if band.seeking_instruments.present? %>
+                  <p><strong>Seeking:</strong> <%= band.seeking_instruments.join(", ") %></p>
+                <% end %>
+                
+                <% if band.city.present? || band.state.present? %>
+                  <p><strong>Location:</strong> <%= [band.city, band.state].compact.join(", ") %></p>
+                <% end %>
+              </div>
+
+              <%= link_to "View Band", band_path(band), class: "button neon-button is-fullwidth" %>
+            </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="notification is-info">
+        <p class="has-text-centered">No bands found matching your search criteria. Try adjusting your filters.</p>
+      </div>
+    <% end %>
   </div>
 </div> 
