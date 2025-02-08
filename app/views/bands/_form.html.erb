@@ -10,66 +10,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :header_image, class: "label" %>
-    <div class="control">
-      <%= f.file_field :header_image, class: "input", accept: 'image/png,image/jpeg', direct_upload: true, data: { action: "change->image-cropper#preview" } %>
-      <%= f.hidden_field :cropped_image_data %>
-    </div>
-    <% if band.header_image.attached? %>
-      <div class="mt-2">
-        <p>Current image:</p>
-        <%= image_tag band.header_image, class: "preview-image" %>
+  <h3 class="subtitle is-4 mt-4 mb-3">Basic Info</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :name, class: "label" %>
+        <div class="control">
+          <%= f.text_field :name, class: "input" %>
+        </div>
       </div>
-    <% end %>
-    <p class="help">Maximum file size: 5MB. Supported formats: PNG, JPEG</p>
-  </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :name, class: "label" %>
-    <div class="control">
-      <%= f.text_field :name, class: "input" %>
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :band_type, "Band Type", class: "label" %>
+        <div class="control">
+          <%= f.select :band_type, Band::BAND_TYPES, { include_blank: "Select Band Type" }, { class: "input" } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :city, class: "label" %>
+        <div class="control">
+          <%= f.text_field :city, class: "input" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :state, class: "label" %>
+        <div class="control">
+          <%= f.select :state, Band::STATES, { include_blank: "Select State" }, { class: "input" } %>
+        </div>
+      </div>
     </div>
   </div>
 
+  <h3 class="subtitle is-4 mt-5 mb-3">Band Needs</h3>
   <div class="field">
-    <%= f.label :band_type, "Band Type", class: "label" %>
-    <div class="control">
-      <%= f.select :band_type, Band::BAND_TYPES, { include_blank: "Select Band Type" }, { class: "input" } %>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= f.label :city, class: "label" %>
-    <div class="control">
-      <%= f.text_field :city, class: "input" %>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= f.label :state, class: "label" %>
-    <div class="control">
-      <%= f.select :state, 
-        [
-          ['Alabama', 'AL'], ['Alaska', 'AK'], ['Arizona', 'AZ'], ['Arkansas', 'AR'], ['California', 'CA'],
-          ['Colorado', 'CO'], ['Connecticut', 'CT'], ['Delaware', 'DE'], ['Florida', 'FL'], ['Georgia', 'GA'],
-          ['Hawaii', 'HI'], ['Idaho', 'ID'], ['Illinois', 'IL'], ['Indiana', 'IN'], ['Iowa', 'IA'],
-          ['Kansas', 'KS'], ['Kentucky', 'KY'], ['Louisiana', 'LA'], ['Maine', 'ME'], ['Maryland', 'MD'],
-          ['Massachusetts', 'MA'], ['Michigan', 'MI'], ['Minnesota', 'MN'], ['Mississippi', 'MS'], ['Missouri', 'MO'],
-          ['Montana', 'MT'], ['Nebraska', 'NE'], ['Nevada', 'NV'], ['New Hampshire', 'NH'], ['New Jersey', 'NJ'],
-          ['New Mexico', 'NM'], ['New York', 'NY'], ['North Carolina', 'NC'], ['North Dakota', 'ND'], ['Ohio', 'OH'],
-          ['Oklahoma', 'OK'], ['Oregon', 'OR'], ['Pennsylvania', 'PA'], ['Rhode Island', 'RI'], ['South Carolina', 'SC'],
-          ['South Dakota', 'SD'], ['Tennessee', 'TN'], ['Texas', 'TX'], ['Utah', 'UT'], ['Vermont', 'VT'],
-          ['Virginia', 'VA'], ['Washington', 'WA'], ['West Virginia', 'WV'], ['Wisconsin', 'WI'], ['Wyoming', 'WY']
-        ],
-        { include_blank: "Select State" },
-        { class: "input" }
-      %>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= f.label :seeking_instruments, "Seeking", class: "label" %>
+    <%= f.label :seeking_instruments, "What instruments are you seeking?", class: "label" %>
     <div class="control">
       <div class="checkboxes-grid">
         <%= f.collection_check_boxes :seeking_instruments, Band::INSTRUMENTS.map { |i| [i, i.titleize] }, :first, :second do |b| %>
@@ -82,61 +64,113 @@
     </div>
   </div>
 
-  <div class="field">
-    <%= f.label :instagram_handle, class: "label" %>
-    <div class="control">
-      <%= f.text_field :instagram_handle, class: "input", placeholder: "yourusername (no @ symbol)" %>
+  <h3 class="subtitle is-4 mt-5 mb-3">Social Links</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :instagram_handle, class: "label" %>
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fab fa-instagram"></i>
+          </span>
+          <%= f.text_field :instagram_handle, class: "input", placeholder: "username (no @ symbol)" %>
+        </div>
+      </div>
     </div>
-    <p class="help">Just the username, no @ symbol needed</p>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :website_url, class: "label" %>
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fas fa-globe"></i>
+          </span>
+          <%= f.url_field :website_url, class: "input", placeholder: "https://yourwebsite.com" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :bandcamp_url, class: "label" %>
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fab fa-bandcamp"></i>
+          </span>
+          <%= f.url_field :bandcamp_url, class: "input", placeholder: "https://yourbandname.bandcamp.com" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :spotify_url, class: "label" %>
+        <div class="control has-icons-left">
+          <span class="icon is-small is-left">
+            <i class="fab fa-spotify"></i>
+          </span>
+          <%= f.url_field :spotify_url, class: "input", placeholder: "https://open.spotify.com/artist/..." %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :website_url, class: "label" %>
-    <div class="control">
-      <%= f.text_field :website_url, class: "input", placeholder: "https://yourwebsite.com" %>
+  <h3 class="subtitle is-4 mt-5 mb-3">Tour Integration</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :songkick_id, class: "label" %>
+        <div class="control">
+          <%= f.text_field :songkick_id, class: "input", placeholder: "Your Songkick artist ID" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :bandsintown_id, class: "label" %>
+        <div class="control">
+          <%= f.text_field :bandsintown_id, class: "input", placeholder: "Your exact Bandsintown artist name" %>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="field">
-    <%= f.label :bandcamp_url, class: "label" %>
-    <div class="control">
-      <%= f.text_field :bandcamp_url, class: "input", placeholder: "https://yourbandname.bandcamp.com" %>
-    </div>
-  </div>
-
-  <div class="field">
-    <%= f.label :spotify_url, class: "label" %>
-    <div class="control">
-      <%= f.text_field :spotify_url, class: "input", placeholder: "https://open.spotify.com/artist/..." %>
-    </div>
-    <p class="help">Full Spotify URL to your artist page</p>
-  </div>
-
-  <div class="field">
-    <%= f.label :songkick_id, class: "label" %>
-    <div class="control">
-      <%= f.text_field :songkick_id, class: "input" %>
-    </div>
-    <p class="help">Your Songkick artist ID number</p>
-  </div>
-
-  <div class="field">
-    <%= f.label :bandsintown_id, class: "label" %>
-    <div class="control">
-      <%= f.text_field :bandsintown_id, class: "input" %>
-    </div>
-    <p class="help">Use your exact artist name from Bandsintown</p>
-  </div>
-
+  <h3 class="subtitle is-4 mt-5 mb-3">Media</h3>
   <div class="field">
     <%= f.label :youtube_url, "YouTube Video URL", class: "label" %>
     <div class="control">
-      <%= f.text_field :youtube_url, class: "input" %>
+      <%= f.text_field :youtube_url, class: "input", placeholder: "https://youtube.com/..." %>
     </div>
   </div>
 
+  <h3 class="subtitle is-4 mt-5 mb-3">Header Image</h3>
   <div class="field">
-    <%= f.submit class: "button is-fullwidth neon-button" %>
+    <div class="file is-boxed">
+      <label class="file-label">
+        <%= f.file_field :header_image, class: "file-input", accept: 'image/png,image/jpeg', direct_upload: true, data: { action: "change->image-cropper#preview" } %>
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">
+            Choose a file...
+          </span>
+        </span>
+      </label>
+    </div>
+    <%= f.hidden_field :cropped_image_data %>
+    <% if band.header_image.attached? %>
+      <div class="mt-2">
+        <p>Current image:</p>
+        <%= image_tag band.header_image, class: "preview-image" %>
+      </div>
+    <% end %>
+    <p class="help">Maximum file size: 5MB. Supported formats: PNG, JPEG</p>
+  </div>
+
+  <div class="actions mt-6">
+    <%= f.submit class: "button neon-button" %>
   </div>
 <% end %>
 
