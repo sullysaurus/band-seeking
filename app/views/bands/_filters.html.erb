@@ -1,5 +1,8 @@
-<div class="box filters-box">
-  <button class="filter-toggle button is-fullwidth mb-3" data-action="toggle-filters">
+<div class="box">
+  <button class="button is-fullwidth is-hidden-tablet mb-3" data-action="click->filters#toggle">
+    <span class="icon">
+      <i class="fas fa-filter"></i>
+    </span>
     <span>Show Filters</span>
     <span class="icon">
       <i class="fas fa-chevron-down"></i>
@@ -66,4 +69,50 @@
       </div>
     <% end %>
   </div>
-</div> 
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Handle filter toggles on mobile
+    const filterButton = document.querySelector('[data-action="click->filters#toggle"]');
+    const filtersContent = document.getElementById('filtersContent');
+    
+    if (filterButton) {
+      filterButton.addEventListener('click', function() {
+        // Toggle the is-hidden-mobile class
+        filtersContent.classList.toggle('is-hidden-mobile');
+        
+        // Toggle the chevron icon
+        const chevron = this.querySelector('.fa-chevron-down');
+        if (chevron) {
+          chevron.classList.toggle('fa-chevron-down');
+          chevron.classList.toggle('fa-chevron-up');
+        }
+        
+        // Toggle button text
+        const buttonText = this.querySelector('span:not(.icon)');
+        if (buttonText) {
+          buttonText.textContent = buttonText.textContent === 'Show Filters' ? 'Hide Filters' : 'Show Filters';
+        }
+      });
+    }
+
+    // Handle select changes
+    const selects = document.querySelectorAll('select');
+    selects.forEach(select => {
+      select.addEventListener('change', function() {
+        this.closest('form').submit();
+      });
+    });
+  });
+</script>
+
+<style>
+  @media screen and (max-width: 768px) {
+    #filtersContent:not(.is-hidden-mobile) {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #dbdbdb;
+    }
+  }
+</style> 
