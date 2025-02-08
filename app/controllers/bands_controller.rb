@@ -7,8 +7,13 @@ class BandsController < ApplicationController
     @bands = Band.all
     
     if params[:seeking].present?
-      seeking = params[:seeking].is_a?(Array) ? params[:seeking] : [params[:seeking]]
-      @bands = @bands.where("seeking_instruments && ARRAY[?]::varchar[]", seeking)
+      seeking = Array(params[:seeking]).reject(&:blank?)
+      if seeking.any?
+        Rails.logger.debug "Seeking instruments: #{seeking.inspect}"
+        @bands = @bands.where("seeking_instruments::text[] && ARRAY[?]::text[]", seeking)
+        Rails.logger.debug "SQL: #{@bands.to_sql}"
+        Rails.logger.debug "Results count: #{@bands.count}"
+      end
     end
 
     if params[:band_type].present?

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_07_173255) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_08_141357) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -43,34 +43,49 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_173255) do
   end
 
   create_table "bands", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.string "city"
     t.string "state"
-    t.text "seeking_instruments"
-    t.text "custom_links"
-    t.string "spotify_url"
-    t.string "youtube_url"
+    t.string "band_type"
     t.string "slug"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "instagram_handle"
     t.string "website_url"
     t.string "bandcamp_url"
+    t.string "spotify_url"
     t.string "songkick_id"
     t.string "bandsintown_id"
-    t.string "band_type"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "seeking_instruments", default: [], array: true
+    t.index ["seeking_instruments"], name: "index_bands_on_seeking_instruments", using: :gin
     t.index ["slug"], name: "index_bands_on_slug", unique: true
     t.index ["user_id"], name: "index_bands_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.text "bio"
     t.bigint "user_id", null: false
+    t.string "bio"
+    t.string "influences", default: [], array: true
+    t.string "genres", default: [], array: true
+    t.string "experience_level"
+    t.string "commitment_level"
+    t.integer "age"
+    t.string "gender"
+    t.string "availability"
+    t.string "transportation"
+    t.string "preferred_genres", default: [], array: true
+    t.string "practice_frequency"
+    t.string "gig_frequency"
+    t.boolean "willing_to_travel"
+    t.integer "travel_distance"
+    t.string "equipment"
+    t.text "additional_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["genres"], name: "index_profiles_on_genres", using: :gin
+    t.index ["influences"], name: "index_profiles_on_influences", using: :gin
+    t.index ["preferred_genres"], name: "index_profiles_on_preferred_genres", using: :gin
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -80,18 +95,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_07_173255) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "instruments_played", default: [], array: true
-    t.string "looking_for"
+    t.string "username"
     t.string "city"
     t.string "state"
+    t.string "instruments_played", default: [], array: true
+    t.string "looking_for"
     t.string "instagram_handle"
     t.string "website_url"
     t.text "spotify_embed"
     t.text "youtube_embed"
-    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["instruments_played"], name: "index_users_on_instruments_played", using: :gin
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

@@ -1,5 +1,4 @@
-# This migration comes from active_storage (originally 20170806125915)
-class CreateActiveStorageTables < ActiveRecord::Migration[7.0]
+class CreateActiveStorageTables < ActiveRecord::Migration[7.1]
   def change
     # Use Active Record's configured type for primary and foreign keys
     primary_key_type, foreign_key_type = primary_and_foreign_key_types
@@ -52,6 +51,6 @@ class CreateActiveStorageTables < ActiveRecord::Migration[7.0]
       setting = config.options[config.orm][:primary_key_type]
       primary_key_type = setting || :primary_key
       foreign_key_type = setting || :bigint
-      [ primary_key_type, foreign_key_type ]
+      [primary_key_type, foreign_key_type]
     end
 end

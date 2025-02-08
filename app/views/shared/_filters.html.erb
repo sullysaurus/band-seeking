@@ -1,0 +1,63 @@
+<div class="filters-box">
+  <button class="filter-toggle button is-fullwidth mb-3" data-action="toggle-filters">
+    <span>Show Filters</span>
+    <span class="icon">
+      <i class="fas fa-chevron-down"></i>
+    </span>
+  </button>
+
+  <div id="filtersContent" class="is-hidden-mobile">
+    <%= form_with(url: bands_path, method: :get, local: true, class: "filters-form") do |f| %>
+      <div class="filter-group">
+        <div class="field">
+          <%= f.label :band_type, "Band Type", class: "label" %>
+          <div class="control">
+            <%= f.select :band_type,
+              options_for_select(Band::BAND_TYPES, params[:band_type]),
+              { include_blank: "Any Type" },
+              { class: "input" }
+            %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :seeking, "Looking For", class: "label" %>
+          <div class="control">
+            <%= f.select :seeking,
+              options_for_select(Band::INSTRUMENTS, params[:seeking]),
+              { include_blank: "Any Instrument" },
+              { class: "input" }
+            %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :city, "City", class: "label" %>
+          <div class="control">
+            <%= f.select :city,
+              options_for_select(@cities, params[:city]),
+              { include_blank: "Any City" },
+              { class: "input" }
+            %>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.label :state, "State", class: "label" %>
+          <div class="control">
+            <%= f.select :state,
+              options_for_select(@states, params[:state]),
+              { include_blank: "Any State" },
+              { class: "input" }
+            %>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <%= f.submit "Apply", class: "button neon-button" %>
+        <%= link_to "Clear", bands_path, class: "button" %>
+      </div>
+    <% end %>
+  </div>
+</div> 

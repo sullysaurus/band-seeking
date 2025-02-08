@@ -2,11 +2,47 @@ class Band < ApplicationRecord
   belongs_to :user
   has_one_attached :header_image
   
-  INSTRUMENTS = ["Guitar", "Bass", "Drums", "Vocals", "Keys", "Other"].freeze
+  INSTRUMENTS = [
+    # Guitars
+    'Lead Guitar',
+    'Electric Guitar',
+    'Acoustic Guitar',
+    'Bass Guitar',
+    
+    # Vocals
+    'Lead Vocals',
+    'Backup Vocals',
+    
+    # Rhythm Section
+    'Drum Set',
+    'Percussion',
+    'Double Bass',
+    
+    # Keys
+    'Keyboard',
+    'Piano',
+    'Synthesizer',
+    
+    # Woodwinds
+    'Saxophone',
+    'Flute',
+    'Clarinet',
+    
+    # Brass
+    'Trumpet',
+    'Trombone',
+    
+    # Strings
+    'Violin',
+    'Cello',
+    
+    # Folk/Acoustic
+    'Harmonica',
+    'Banjo',
+    'Mandolin'
+  ].freeze
 
   BAND_TYPES = ["Cover Band", "Original Band"].freeze
-
-  serialize :seeking_instruments, coder: JSON
 
   validates :name, presence: true
   validates :city, presence: true
@@ -24,6 +60,14 @@ class Band < ApplicationRecord
 
   before_validation :generate_slug
   before_validation :clean_instagram_handle
+
+  # Add index for faster searching
+  scope :seeking_instrument, ->(instrument) {
+    where("seeking_instruments::text[] && ARRAY[?]::text[]", Array(instrument))
+  }
+
+  # Validate that instruments are from our list
+  validate :valid_seeking_instruments
 
   def to_param
     slug
@@ -57,5 +101,14 @@ class Band < ApplicationRecord
   def clean_instagram_handle
     return if instagram_handle.blank?
     instagram_handle.gsub!('@', '')
+  end
+
+  def valid_seeking_instruments
+    return unless seeking_instruments.present?
+    
+    invalid_instruments = seeking_instruments - INSTRUMENTS
+    if invalid_instruments.any?
+      errors.add(:seeking_instruments, "contains invalid instruments: #{invalid_instruments.join(', ')}")
+    end
   end
 end 
