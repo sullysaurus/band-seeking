@@ -9,6 +9,39 @@
   <div id="filtersContent" class="is-hidden-mobile">
     <%= form_with(url: musicians_path, method: :get, local: true, class: "filters-form") do |f| %>
       <div class="filter-group">
+
+      <div class="field">
+      <%= f.label :looking_for, "Looking For", class: "label" %>
+      <div class="control">
+        <%= f.select :looking_for,
+          options_for_select(User::LOOKING_FOR, params[:looking_for]),
+          { include_blank: "Any Type" },
+          { class: "input" }
+        %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :city, "City", class: "label" %>
+      <div class="control">
+        <%= f.select :city,
+          options_for_select(@cities, params[:city]),
+          { include_blank: "Any City" },
+          { class: "input" }
+        %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :state, "State", class: "label" %>
+      <div class="control">
+        <%= f.select :state,
+          options_for_select(@states, params[:state]),
+          { include_blank: "Any State" },
+          { class: "input" }
+        %>
+      </div>
+    </div>
         <div class="field">
           <%= f.label :instrument, "Plays", class: "label" %>
           <div class="control">
@@ -20,39 +53,6 @@
                 </div>
               <% end %>
             </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <%= f.label :looking_for, "Looking For", class: "label" %>
-          <div class="control">
-            <%= f.select :looking_for,
-              options_for_select(User::LOOKING_FOR, params[:looking_for]),
-              { include_blank: "Any Type" },
-              { class: "input" }
-            %>
-          </div>
-        </div>
-
-        <div class="field">
-          <%= f.label :city, "City", class: "label" %>
-          <div class="control">
-            <%= f.select :city,
-              options_for_select(@cities, params[:city]),
-              { include_blank: "Any City" },
-              { class: "input" }
-            %>
-          </div>
-        </div>
-
-        <div class="field">
-          <%= f.label :state, "State", class: "label" %>
-          <div class="control">
-            <%= f.select :state,
-              options_for_select(@states, params[:state]),
-              { include_blank: "Any State" },
-              { class: "input" }
-            %>
           </div>
         </div>
       </div>
