@@ -19,7 +19,6 @@
         <div class="buttons">
           <% if user_signed_in? %>
             <%= link_to "My Profile", profile_path, class: "button is-light" %>
-            <%= link_to "Create a Band", new_band_path, class: "button neon-button" %>
             <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "button is-light" %>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path, class: "button neon-button" %>
