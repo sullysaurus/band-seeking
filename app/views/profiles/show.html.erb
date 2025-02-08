@@ -1,85 +1,204 @@
-<div class="box">
-  <div class="columns">
-    <div class="column is-one-quarter">
-      <% if @user.avatar.attached? %>
-        <%= image_tag @user.avatar %>
-      <% end %>
-    </div>
-    
-    <div class="column">
-      <h1 class="title"><%= @user.email %></h1>
-      
-      <div class="content">
-        <% if @user.instruments_played.present? %>
-          <p><strong>Plays:</strong> <%= @user.instruments_played_list %></p>
-        <% end %>
-        
-        <% if @user.looking_for.present? %>
-          <p><strong>Looking For:</strong> <%= @user.looking_for %></p>
-        <% end %>
-        
-        <% if @user.city.present? || @user.state.present? %>
-          <p><strong>Location:</strong> <%= [@user.city, @user.state].compact.join(", ") %></p>
-        <% end %>
-        
-        <% if @user.instagram_handle.present? %>
-          <p>
-            <strong>Instagram:</strong>
-            <%= link_to "@#{@user.instagram_handle}", "https://instagram.com/#{@user.instagram_handle}" %>
-          </p>
-        <% end %>
-        
-        <% if @user.website_url.present? %>
-          <p>
-            <strong>Website:</strong>
-            <%= link_to @user.website_url, @user.website_url %>
-          </p>
-        <% end %>
-      </div>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="box">
+        <div class="level mb-5">
+          <div class="level-left">
+            <h1 class="title mb-0">Your Profile</h1>
+          </div>
+          <div class="level-right">
+            <%= link_to edit_profile_path, class: "button neon-button" do %>
+              <span class="icon">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span>Edit Profile</span>
+            <% end %>
+          </div>
+        </div>
 
-      <%= link_to "Edit Profile", edit_profile_path, class: "button neon-button" %>
-    </div>
-  </div>
-
-  <% if @user.spotify_embed.present? %>
-    <div class="mt-6">
-      <h2 class="title is-4">Music</h2>
-      <%= @user.spotify_embed.html_safe %>
-    </div>
-  <% end %>
-
-  <% if @user.youtube_embed.present? %>
-    <div class="mt-6">
-      <h2 class="title is-4">Videos</h2>
-      <%= @user.youtube_embed.html_safe %>
-    </div>
-  <% end %>
-
-  <div class="bands-section">
-    <h3 class="subtitle">My Bands</h3>
-    
-    <% if current_user == @profile.user %>
-      <div class="buttons">
-        <%= link_to 'Create New Band', new_band_path, class: 'button neon-button' %>
-      </div>
-    <% end %>
-
-    <% if @profile.user.bands.any? %>
-      <div class="bands-grid">
-        <% @profile.user.bands.each do |band| %>
-          <div class="box band-card">
-            <h2 class="subtitle"><%= link_to band.name, band_path(band) %></h2>
-            <p><%= "#{band.city}, #{band.state}" %></p>
-            <div class="tags">
-              <% band.seeking_instruments.each do |instrument| %>
-                <span class="tag"><%= instrument.titleize %></span>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <div class="has-text-centered">
+              <% if @user.avatar.attached? %>
+                <%= image_tag @user.avatar, class: "is-rounded" %>
+              <% else %>
+                <div class="notification is-light">
+                  <p class="has-text-grey">
+                    <span class="icon">
+                      <i class="fas fa-camera"></i>
+                    </span>
+                    Add a profile picture
+                  </p>
+                </div>
               <% end %>
             </div>
           </div>
-        <% end %>
+          
+          <div class="column">
+            <div class="content">
+              <h3 class="subtitle is-5 mb-2">Basic Info</h3>
+              <div class="profile-info-grid">
+                <div class="info-item">
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <strong>Username:</strong>
+                  </span>
+                  <%= @user.username.presence || content_tag(:span, "Add username", class: "has-text-grey-light") %>
+                </div>
+
+                <div class="info-item">
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </span>
+                    <strong>Location:</strong>
+                  </span>
+                  <% if @user.city.present? || @user.state.present? %>
+                    <%= [@user.city, @user.state].compact.join(", ") %>
+                  <% else %>
+                    <span class="has-text-grey-light">Add location</span>
+                  <% end %>
+                </div>
+
+                <div class="info-item">
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fas fa-music"></i>
+                    </span>
+                    <strong>Instruments:</strong>
+                  </span>
+                  <% if @user.instruments_played.present? %>
+                    <div class="tags">
+                      <% @user.instruments_played.each do |instrument| %>
+                        <span class="tag is-info is-light"><%= instrument %></span>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <span class="has-text-grey-light">Add instruments you play</span>
+                  <% end %>
+                </div>
+
+                <div class="info-item">
+                  <span class="icon-text">
+                    <span class="icon">
+                      <i class="fas fa-search"></i>
+                    </span>
+                    <strong>Looking For:</strong>
+                  </span>
+                  <%= @user.looking_for.presence || content_tag(:span, "Add what you're looking for", class: "has-text-grey-light") %>
+                </div>
+              </div>
+
+              <h3 class="subtitle is-5 mt-5 mb-2">Social Links</h3>
+              <div class="profile-info-grid">
+                <% if @user.instagram_handle.present? %>
+                  <div class="info-item">
+                    <span class="icon-text">
+                      <span class="icon">
+                        <i class="fab fa-instagram"></i>
+                      </span>
+                      <%= link_to "@#{@user.instagram_handle}", "https://instagram.com/#{@user.instagram_handle}" %>
+                    </span>
+                  </div>
+                <% end %>
+                
+                <% if @user.website_url.present? %>
+                  <div class="info-item">
+                    <span class="icon-text">
+                      <span class="icon">
+                        <i class="fas fa-globe"></i>
+                      </span>
+                      <%= link_to @user.website_url, @user.website_url %>
+                    </span>
+                  </div>
+                <% end %>
+                
+                <% if !@user.instagram_handle.present? && !@user.website_url.present? %>
+                  <span class="has-text-grey-light">Add your social media links</span>
+                <% end %>
+              </div>
+
+              <% if @user.spotify_embed.present? || @user.youtube_embed.present? %>
+                <h3 class="subtitle is-5 mt-5 mb-2">Media</h3>
+                <% if @user.spotify_embed.present? %>
+                  <div class="mb-4">
+                    <%= @user.spotify_embed.html_safe %>
+                  </div>
+                <% end %>
+
+                <% if @user.youtube_embed.present? %>
+                  <div class="mb-4">
+                    <%= @user.youtube_embed.html_safe %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="bands-section mt-6">
+          <div class="level">
+            <div class="level-left">
+              <h3 class="subtitle is-4 mb-0">My Bands</h3>
+            </div>
+            <div class="level-right">
+              <%= link_to new_band_path, class: "button is-small neon-button" do %>
+                <span class="icon">
+                  <i class="fas fa-plus"></i>
+                </span>
+                <span>Create New Band</span>
+              <% end %>
+            </div>
+          </div>
+
+          <% if @user.bands.any? %>
+            <div class="columns is-multiline mt-3">
+              <% @user.bands.each do |band| %>
+                <div class="column is-half">
+                  <div class="box">
+                    <h4 class="title is-5"><%= link_to band.name, band_path(band) %></h4>
+                    <p class="mb-2">
+                      <span class="icon-text">
+                        <span class="icon">
+                          <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                        <span><%= "#{band.city}, #{band.state}" %></span>
+                      </span>
+                    </p>
+                    <div class="tags">
+                      <% band.seeking_instruments.each do |instrument| %>
+                        <span class="tag is-primary is-light"><%= instrument.titleize %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="notification is-light mt-3">
+              <p class="has-text-centered has-text-grey">
+                You haven't created any bands yet. Click the button above to get started!
+              </p>
+            </div>
+          <% end %>
+        </div>
       </div>
-    <% else %>
-      <p class="no-bands">No bands created yet.</p>
-    <% end %>
+    </div>
   </div>
-</div> 
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .profile-info-grid {
+      display: grid;
+      gap: 1rem;
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
+<% end %> 
