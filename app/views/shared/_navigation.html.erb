@@ -1,30 +1,30 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" data-controller="navbar">
   <div class="navbar-brand">
     <%= link_to "BandSeeking", root_path, class: "navbar-item" %>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+    <a role="button" 
+       class="navbar-burger" 
+       aria-label="menu" 
+       aria-expanded="false"
+       data-navbar-target="burger"
+       data-action="click->navbar#toggle">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <%= link_to "Bands", bands_path, class: "navbar-item" %>
-      <%= link_to "Musicians", musicians_path, class: "navbar-item" %>
-    </div>
-
+  <div class="navbar-menu" data-navbar-target="menu">
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
           <% if user_signed_in? %>
-            <%= link_to "My Profile", profile_path, class: "button" %>
-            <%= link_to "Post a Band", new_band_path, class: "button neon-button" %>
-            <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "button" %>
+            <%= link_to "My Profile", profile_path, class: "button is-light" %>
+            <%= link_to "Create a Band", new_band_path, class: "button neon-button" %>
+            <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "button is-light" %>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path, class: "button neon-button" %>
-            <%= link_to "Log In", new_user_session_path, class: "button" %>
+            <%= link_to "Log In", new_user_session_path, class: "button is-light" %>
           <% end %>
         </div>
       </div>

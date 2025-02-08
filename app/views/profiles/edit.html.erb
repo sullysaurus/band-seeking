@@ -2,172 +2,127 @@
   <h2 class="title">Edit Your Profile</h2>
 
   <%= form_with(model: current_user, url: profile_path, method: :patch) do |f| %>
-    <div class="profile-section">
-      <button type="button" class="section-title collapsible">
-        Basic Info
-        <span class="icon">
-          <i class="fas fa-chevron-down"></i>
-        </span>
-      </button>
-      <div class="section-content">
-        <div class="columns is-multiline">
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :username, class: "label" %>
-              <div class="control">
-                <%= f.text_field :username, class: "input" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :email, class: "label" %>
-              <div class="control">
-                <%= f.email_field :email, class: "input" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :city, class: "label" %>
-              <div class="control">
-                <%= f.text_field :city, class: "input" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :state, class: "label" %>
-              <div class="control">
-                <%= f.text_field :state, class: "input", maxlength: 2, placeholder: "NC" %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <button type="button" class="section-title collapsible">
-        Musical Info
-        <span class="icon">
-          <i class="fas fa-chevron-down"></i>
-        </span>
-      </button>
-      <div class="section-content">
+    <h3 class="subtitle is-4 mt-4 mb-3">Basic Info</h3>
+    <div class="columns is-multiline">
+      <div class="column is-half">
         <div class="field">
-          <%= f.label :instruments_played, "What instruments do you play?", class: "label" %>
+          <%= f.label :username, class: "label" %>
           <div class="control">
-            <div class="checkboxes-grid">
-              <%= f.collection_check_boxes :instruments_played, Band::INSTRUMENTS.map { |i| [i, i.titleize] }, :first, :second do |b| %>
-                <div class="checkbox-item">
-                  <%= b.check_box %>
-                  <%= b.label %>
-                </div>
-              <% end %>
-            </div>
+            <%= f.text_field :username, class: "input" %>
           </div>
         </div>
+      </div>
 
+      <div class="column is-half">
         <div class="field">
-          <%= f.label :looking_for, "What kind of band are you looking for?", class: "label" %>
+          <%= f.label :email, class: "label" %>
           <div class="control">
-            <%= f.select :looking_for, User::LOOKING_FOR, { include_blank: "Select type" }, class: "input" %>
+            <%= f.email_field :email, class: "input" %>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="profile-section">
-      <button type="button" class="section-title collapsible">
-        Social Links
-        <span class="icon">
-          <i class="fas fa-chevron-down"></i>
-        </span>
-      </button>
-      <div class="section-content">
-        <div class="columns is-multiline">
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :instagram_handle, "Instagram", class: "label" %>
-              <div class="control has-icons-left">
-                <span class="icon is-small is-left">
-                  <i class="fab fa-instagram"></i>
-                </span>
-                <%= f.text_field :instagram_handle, class: "input", placeholder: "username" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="column is-half">
-            <div class="field">
-              <%= f.label :website_url, "Website", class: "label" %>
-              <div class="control has-icons-left">
-                <span class="icon is-small is-left">
-                  <i class="fas fa-globe"></i>
-                </span>
-                <%= f.url_field :website_url, class: "input", placeholder: "https://" %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-section">
-      <button type="button" class="section-title collapsible">
-        Media
-        <span class="icon">
-          <i class="fas fa-chevron-down"></i>
-        </span>
-      </button>
-      <div class="section-content">
+      <div class="column is-half">
         <div class="field">
-          <%= f.label :spotify_embed, "Spotify Embed Code", class: "label" %>
+          <%= f.label :city, class: "label" %>
           <div class="control">
-            <%= f.text_area :spotify_embed, class: "textarea", rows: 3, placeholder: "Paste your Spotify embed code here" %>
+            <%= f.text_field :city, class: "input" %>
           </div>
         </div>
+      </div>
 
+      <div class="column is-half">
         <div class="field">
-          <%= f.label :youtube_embed, "YouTube Embed Code", class: "label" %>
+          <%= f.label :state, class: "label" %>
           <div class="control">
-            <%= f.text_area :youtube_embed, class: "textarea", rows: 3, placeholder: "Paste your YouTube embed code here" %>
+            <%= f.text_field :state, class: "input", maxlength: 2, placeholder: "NC" %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="profile-section">
-      <button type="button" class="section-title collapsible">
-        Profile Picture
-        <span class="icon">
-          <i class="fas fa-chevron-down"></i>
-        </span>
-      </button>
-      <div class="section-content">
+    <h3 class="subtitle is-4 mt-5 mb-3">Musical Info</h3>
+    <div class="field">
+      <%= f.label :instruments_played, "What instruments do you play?", class: "label" %>
+      <div class="control">
+        <div class="checkboxes-grid">
+          <%= f.collection_check_boxes :instruments_played, Band::INSTRUMENTS.map { |i| [i, i.titleize] }, :first, :second do |b| %>
+            <div class="checkbox-item">
+              <%= b.check_box %>
+              <%= b.label %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :looking_for, "What kind of band are you looking for?", class: "label" %>
+      <div class="control">
+        <%= f.select :looking_for, User::LOOKING_FOR, { include_blank: "Select type" }, class: "input" %>
+      </div>
+    </div>
+
+    <h3 class="subtitle is-4 mt-5 mb-3">Social Links</h3>
+    <div class="columns is-multiline">
+      <div class="column is-half">
         <div class="field">
-          <div class="file is-boxed">
-            <label class="file-label">
-              <%= f.file_field :avatar, class: "file-input" %>
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                  Choose a file...
-                </span>
-              </span>
-            </label>
+          <%= f.label :instagram_handle, "Instagram", class: "label" %>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fab fa-instagram"></i>
+            </span>
+            <%= f.text_field :instagram_handle, class: "input", placeholder: "username" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-half">
+        <div class="field">
+          <%= f.label :website_url, "Website", class: "label" %>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fas fa-globe"></i>
+            </span>
+            <%= f.url_field :website_url, class: "input", placeholder: "https://" %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="actions">
+    <h3 class="subtitle is-4 mt-5 mb-3">Media</h3>
+    <div class="field">
+      <%= f.label :spotify_embed, "Spotify Embed Code", class: "label" %>
+      <div class="control">
+        <%= f.text_area :spotify_embed, class: "textarea", rows: 3, placeholder: "Paste your Spotify embed code here" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :youtube_embed, "YouTube Embed Code", class: "label" %>
+      <div class="control">
+        <%= f.text_area :youtube_embed, class: "textarea", rows: 3, placeholder: "Paste your YouTube embed code here" %>
+      </div>
+    </div>
+
+    <h3 class="subtitle is-4 mt-5 mb-3">Profile Picture</h3>
+    <div class="field">
+      <div class="file is-boxed">
+        <label class="file-label">
+          <%= f.file_field :avatar, class: "file-input" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file...
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="actions mt-6">
       <%= f.submit "Update Profile", class: "button neon-button" %>
     </div>
   <% end %>

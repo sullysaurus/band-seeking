@@ -1,0 +1,7 @@
+.navbar-burger {
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-menu {
+  transition: all 0.3s ease-in-out;
+} 
