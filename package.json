@@ -1,0 +1,20 @@
+{
+  "name": "band-seeking",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=assets && sass ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css": "sass --load-path=node_modules app/assets/stylesheets/application.scss app/assets/builds/application.css --no-source-map",
+    "watch": "esbuild app/javascript/application.js --watch --bundle --outdir=app/assets/builds --public-path=assets & sass --watch ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.0",
+    "bulma": "^1.0.3",
+    "cropperjs": "^1.6.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0",
+    "sass": "^1.69.0"
+  }
+}

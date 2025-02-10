@@ -1,0 +1,99 @@
+<div class="hero is-small mb-4">
+  <div class="hero-body has-text-left">
+    <div class="container">
+      <h1 class="title">Find Musicians</h1>
+      <p class="subtitle">Connect with talented musicians in your area</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <div class="box">
+        <h2 class="title is-4">Filters</h2>
+        <%= form_with(url: musicians_path, method: :get, local: true) do |f| %>
+          <div class="field">
+            <%= f.label :instrument, "Plays Instrument", class: "label" %>
+            <%= f.select :instrument, 
+                User::INSTRUMENTS,
+                { include_blank: "Any Instrument" },
+                { class: "select is-fullwidth" } %>
+          </div>
+
+          <div class="field">
+            <%= f.label :looking_for, "Looking For", class: "label" %>
+            <%= f.select :looking_for,
+                User::LOOKING_FOR,
+                { include_blank: "Any Role" },
+                { class: "select is-fullwidth" } %>
+          </div>
+
+          <div class="field">
+            <%= f.label :city, "City", class: "label" %>
+            <%= f.text_field :city,
+                placeholder: "Enter city name",
+                class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :state, "State", class: "label" %>
+            <%= f.select :state,
+                Band::STATES,
+                { include_blank: "Any State" },
+                { class: "select is-fullwidth" } %>
+          </div>
+
+          <div class="field">
+            <%= f.submit "Apply Filters", class: "button is-primary is-fullwidth" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="column">
+      <% if @musicians.any? %>
+        <div class="columns is-multiline">
+          <% @musicians.each do |musician| %>
+            <div class="column is-12-mobile is-half-tablet is-one-third-desktop">
+              <div class="card">
+                <div class="card-image">
+                  <% if musician.avatar.attached? %>
+                    <figure class="image">
+                      <%= image_tag musician.avatar %>
+                    </figure>
+                  <% end %>
+                </div>
+
+                <div class="card-content">
+                  <div class="content">
+                    <h2 class="title is-4">@<%= musician.username %></h2>
+
+                    <% if musician.instruments_played.present? %>
+                      <p><strong>Plays:</strong> <%= musician.instruments_played_list %></p>
+                    <% end %>
+
+                    <% if musician.looking_for.present? %>
+                      <p><strong>Looking For:</strong> <%= musician.looking_for %></p>
+                    <% end %>
+
+                    <% if musician.city.present? || musician.state.present? %>
+                      <p><strong>Location:</strong> <%= [musician.city, musician.state].compact.join(", ") %></p>
+                    <% end %>
+                  </div>
+
+                  <%= link_to "View Profile", musician_path(musician), class: "button neon-button is-fullwidth" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="notification is-info has-text-centered">
+          <p>No musicians found matching your search criteria.</p>
+          <p>Try adjusting your filters or check back later!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

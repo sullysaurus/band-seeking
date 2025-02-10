@@ -1,0 +1,69 @@
+@use "../base/variables" as *;
+
+.auth-box {
+  max-width: 400px;
+  margin: 2rem auto !important;
+
+  .title {
+    text-align: center;
+    margin-bottom: 2rem !important;
+  }
+
+  .field {
+    margin-bottom: 1.5rem;
+  }
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: $font-family-mono;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 3px solid $black;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+
+    &:checked {
+      background: $black;
+      position: relative;
+
+      &::after {
+        content: "✓";
+        color: $white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+.auth-links {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: $border-width solid $black;
+  text-align: center;
+
+  a {
+    display: block;
+    margin: 0.5rem 0;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.5rem;
+
+    &:hover {
+      background: $black;
+      color: $white;
+    }
+  }
+} 

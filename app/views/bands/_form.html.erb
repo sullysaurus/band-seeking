@@ -1,0 +1,198 @@
+<%= form_with(model: band, local: true, data: { controller: "image-cropper" }) do |f| %>
+  <% if band.errors.any? %>
+    <div class="notification is-danger">
+      <h2><%= pluralize(band.errors.count, "error") %> prohibited this band from being saved:</h2>
+      <ul>
+        <% band.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h3 class="subtitle is-4 mt-4 mb-3">Basic Info</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :name, class: "label" %>
+        <div class="control">
+          <%= f.text_field :name, class: "input" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :band_type, "Band Type", class: "label" %>
+        <div class="control">
+          <%= f.select :band_type, Band::BAND_TYPES, { include_blank: "Select Band Type" }, { class: "input" } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :city, class: "label" %>
+        <div class="control">
+          <%= f.text_field :city, class: "input" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :state, class: "label" %>
+        <div class="control">
+          <%= f.select :state, Band::STATES, { include_blank: "Select State" }, { class: "input" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle is-4 mt-5 mb-3">Band Needs</h3>
+  <div class="field">
+    <%= f.label :seeking_instruments, "What instruments are you seeking?", class: "label" %>
+    <div class="control">
+      <div class="checkboxes-grid">
+        <%= f.collection_check_boxes :seeking_instruments, Band::INSTRUMENTS.map { |i| [i, i.titleize] }, :first, :second do |b| %>
+          <div class="checkbox-item">
+            <%= b.check_box %>
+            <%= b.label %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle is-4 mt-5 mb-3">Social Links</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :instagram_handle, class: "label" %>
+        <div class="control">
+          <%= f.text_field :instagram_handle, class: "input", placeholder: "username (no @ symbol)" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :website_url, class: "label" %>
+        <div class="control">
+          <%= f.url_field :website_url, class: "input", placeholder: "https://yourwebsite.com" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :bandcamp_url, class: "label" %>
+        <div class="control">
+          <%= f.url_field :bandcamp_url, class: "input", placeholder: "https://yourbandname.bandcamp.com" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :spotify_url, class: "label" %>
+        <div class="control">
+          <%= f.url_field :spotify_url, class: "input", placeholder: "https://open.spotify.com/artist/..." %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle is-4 mt-5 mb-3">Tour Integration</h3>
+  <div class="columns is-multiline">
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :songkick_id, class: "label" %>
+        <div class="control">
+          <%= f.text_field :songkick_id, class: "input", placeholder: "Your Songkick artist ID" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-half">
+      <div class="field">
+        <%= f.label :bandsintown_id, class: "label" %>
+        <div class="control">
+          <%= f.text_field :bandsintown_id, class: "input", placeholder: "Your exact Bandsintown artist name" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subtitle is-4 mt-5 mb-3">Media</h3>
+  <div class="field">
+    <%= f.label :youtube_url, "YouTube Video URL", class: "label" %>
+    <div class="control">
+      <%= f.text_field :youtube_url, class: "input", placeholder: "https://youtube.com/..." %>
+    </div>
+  </div>
+
+  <h3 class="subtitle is-4 mt-5 mb-3">Header Image</h3>
+  <div data-controller="image-cropper">
+    <div class="field">
+      <%= f.label :header_image, "Band Image", class: "label" %>
+      <div class="file has-name is-fullwidth">
+        <label class="file-label">
+          <%= f.file_field :header_image, 
+              class: "file-input",
+              data: {
+                image_cropper_target: "input",
+                action: "change->image-cropper#imageSelected"
+              },
+              accept: "image/*" %>
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Choose a file…
+            </span>
+          </span>
+          <span class="file-name" data-image-cropper-target="filename">
+            <%= band.header_image.attached? ? band.header_image.filename : 'No file selected' %>
+          </span>
+        </label>
+      </div>
+      <% if band.header_image.attached? %>
+        <div class="mt-2">
+          <%= image_tag band.header_image, 
+              class: "preview-image", 
+              data: { image_cropper_target: "preview" } %>
+        </div>
+      <% else %>
+        <img class="preview-image mt-2" 
+             data-image-cropper-target="preview" 
+             style="display: none;">
+      <% end %>
+    </div>
+
+    <%# Modal with proper targets %>
+    <div class="modal" id="cropperModal" data-image-cropper-target="modal">
+      <div class="modal-background" data-action="click->image-cropper#closeModal"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Crop Image</p>
+          <button class="delete" aria-label="close" data-action="click->image-cropper#closeModal"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="image-container">
+            <img data-image-cropper-target="cropperImage" src="" alt="Image to crop">
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button neon-button" type="button" data-action="click->image-cropper#crop">Crop</button>
+          <button class="button" type="button" data-action="click->image-cropper#closeModal">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions mt-6">
+    <%= f.submit class: "button neon-button" %>
+  </div>
+<% end %> 

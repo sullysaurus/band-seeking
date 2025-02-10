@@ -1,0 +1,20 @@
+<div class="editable-field" data-controller="editable">
+  <div class="field-content" data-editable-target="content">
+    <% if value.present? %>
+      <%= value %>
+    <% else %>
+      <span class="placeholder"><%= placeholder %></span>
+    <% end %>
+  </div>
+
+  <% if current_user == user %>
+    <button class="button is-light is-small" 
+            data-action="click->editable#edit"
+            data-editable-field="<%= field %>"
+            data-editable-type="<%= type %>">
+      <span class="icon is-small">
+        <i class="fas fa-edit"></i>
+      </span>
+    </button>
+  <% end %>
+</div> 

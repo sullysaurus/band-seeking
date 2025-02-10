@@ -1,0 +1,39 @@
+<div class="box">
+  <h2 class="title is-4">Filters</h2>
+  <%= form_with(url: bands_path, method: :get, local: true) do |f| %>
+    <div class="field">
+      <%= f.label :instrument, "Seeking Instrument", class: "label" %>
+      <%= f.select :instrument, 
+          User::INSTRUMENTS,
+          { include_blank: "Any Instrument" },
+          { class: "select is-fullwidth" } %>
+    </div>
+
+    <div class="field">
+      <%= f.label :band_type, "Band Type", class: "label" %>
+      <%= f.select :band_type,
+          Band::BAND_TYPES,
+          { include_blank: "Any Type" },
+          { class: "select is-fullwidth" } %>
+    </div>
+
+    <div class="field">
+      <%= f.label :city, "City", class: "label" %>
+      <%= f.text_field :city,
+          placeholder: "Enter city name",
+          class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :state, "State", class: "label" %>
+      <%= f.select :state,
+          Band::STATES,
+          { include_blank: "Any State" },
+          { class: "select is-fullwidth" } %>
+    </div>
+
+    <div class="field">
+      <%= f.submit "Apply Filters", class: "button is-primary is-fullwidth" %>
+    </div>
+  <% end %>
+</div>

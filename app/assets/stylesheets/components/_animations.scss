@@ -1,0 +1,73 @@
+@use "../base/variables" as *;
+
+// Neon glow animation
+@keyframes neon-glow {
+  from {
+    box-shadow: 24px 24px 0 rgba(0, 0, 0, 0.2),
+                0 0 10px $white,
+                0 0 20px $white,
+                0 0 30px $primary,
+                0 0 40px $primary,
+                0 0 50px $primary,
+                0 0 60px $primary;
+  }
+  to {
+    box-shadow: 24px 24px 0 rgba(0, 0, 0, 0.2),
+                0 0 5px $white,
+                0 0 10px $white,
+                0 0 15px $primary,
+                0 0 20px $primary,
+                0 0 25px $primary,
+                0 0 30px $primary;
+  }
+}
+
+@keyframes neon-border {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+// Word carousel animation
+@keyframes rotate-words {
+  0%, 15%, 100% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  20%, 80% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  85%, 95% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+// Apply animations
+.mega-card:hover {
+  transform: translate(-8px, -8px);
+  box-shadow: 24px 24px 0 rgba(0, 0, 0, 0.2);
+  background: $white;
+  animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+.word-carousel {
+  span {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    animation: rotate-words 12s linear infinite;
+    
+    @for $i from 2 through 6 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{($i - 1) * 2}s;
+      }
+    }
+  }
+} 

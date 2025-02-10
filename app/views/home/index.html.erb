@@ -1,0 +1,94 @@
+<div class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="header-box">
+        <h1 class="mega-title">Band Seeking</h1>
+        <p class="subtitle-text">Find your musical match</p>
+        
+        <div class="cta-buttons">
+          <%= link_to "FIND MUSICIANS", musicians_path, class: "button-outline neon" %>
+          <%= link_to "FIND BANDS", bands_path, class: "button-outline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="featured-section">
+      <h2 class="title is-2 has-text-centered mb-6">Featured Bands</h2>
+      <div class="cards">
+        <% Band.order("RANDOM()").limit(3).each do |band| %>
+          <div class="card">
+            <div class="card-image">
+              <% if band.header_image.attached? %>
+                <figure class="image">
+                  <%= image_tag band.header_image %>
+                </figure>
+              <% end %>
+            </div>
+
+            <div class="card-content">
+              <div class="content">
+                <h3 class="title is-4"><%= band.name %></h3>
+                
+                <% if band.band_type.present? %>
+                  <p><strong>Type:</strong> <%= band.band_type %></p>
+                <% end %>
+                
+                <% if band.seeking_instruments.present? %>
+                  <p><strong>Seeking:</strong> <%= band.seeking_instruments.join(", ") %></p>
+                <% end %>
+                
+                <% if band.city.present? || band.state.present? %>
+                  <p><strong>Location:</strong> <%= [band.city, band.state].compact.join(", ") %></p>
+                <% end %>
+              </div>
+
+              <%= link_to "View Band", band_path(band), class: "button neon-button is-fullwidth" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="featured-section mt-6">
+      <h2 class="title is-2 has-text-centered mb-6">Featured Musicians</h2>
+      <div class="cards">
+        <% User.order("RANDOM()").limit(3).each do |musician| %>
+          <div class="card">
+            <div class="card-image">
+              <% if musician.avatar.attached? %>
+                <figure class="image">
+                  <%= image_tag musician.avatar %>
+                </figure>
+              <% end %>
+            </div>
+
+            <div class="card-content">
+              <div class="content">
+                <h3 class="title is-4">@<%= musician.username %></h3>
+                
+                <% if musician.instruments_played.present? %>
+                  <p><strong>Plays:</strong> <%= musician.instruments_played.join(", ") %></p>
+                <% end %>
+                
+                <% if musician.looking_for.present? %>
+                  <p><strong>Looking For:</strong> <%= musician.looking_for %></p>
+                <% end %>
+                
+                <% if musician.city.present? || musician.state.present? %>
+                  <p><strong>Location:</strong> <%= [musician.city, musician.state].compact.join(", ") %></p>
+                <% end %>
+              </div>
+
+              <%= link_to "View Profile", musician_path(musician), class: "button neon-button is-fullwidth" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+

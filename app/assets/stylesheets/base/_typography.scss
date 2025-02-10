@@ -1,0 +1,64 @@
+@use "variables" as *;
+
+// Headings
+.title {
+  font-family: $font-family-mono;
+  font-size: 2.5rem !important;
+  text-transform: uppercase;
+  border-bottom: $border-width solid $black;
+  padding-bottom: 1rem;
+}
+
+.subtitle {
+  font-family: $font-family-mono;
+  font-weight: bold !important;
+}
+
+// Body text
+.content {
+  font-family: $font-family-mono;
+}
+
+// Links
+a {
+  color: $black;
+  text-decoration: underline;
+  font-weight: bold;
+
+  &:hover {
+    color: #666;
+  }
+}
+
+// Dynamic text
+.dynamic-text {
+  font-family: $font-family-mono !important;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.mega-title {
+  font-family: $font-family-mono !important;
+  font-size: 5rem !important;
+  font-weight: bold !important;
+  margin-bottom: 1rem !important;
+  letter-spacing: -1px;
+}
+
+.subtitle-text {
+  font-family: $font-family-mono !important;
+  font-size: 1.75rem;
+  margin-bottom: 3rem !important;
+}
+
+.tagline {
+  font-family: $font-family-mono !important;
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+
+  p {
+    margin-bottom: 0.5rem;
+  }
+} 

@@ -1,0 +1,61 @@
+<div class="hero is-small mb-4">
+  <div class="hero-body has-text-left">
+    <div class="container">
+      <h1 class="title">Find Your Next Band</h1>
+      <p class="subtitle">Browse bands looking for musicians like you</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <%= render 'filters' %>
+    </div>
+
+    <div class="column">
+      <% if @bands.any? %>
+        <div class="columns is-multiline">
+          <% @bands.each do |band| %>
+            <div class="column is-12-mobile is-half-tablet is-one-third-desktop">
+              <div class="card">
+                <div class="card-image">
+                  <% if band.header_image.attached? %>
+                    <figure class="image">
+                      <%= image_tag band.header_image %>
+                    </figure>
+                  <% end %>
+                </div>
+
+                <div class="card-content">
+                  <div class="content">
+                    <h2 class="title is-4"><%= band.name %></h2>
+                    
+                    <% if band.band_type.present? %>
+                      <p><strong>Type:</strong> <%= band.band_type %></p>
+                    <% end %>
+                    
+                    <% if band.seeking_instruments.present? %>
+                      <p><strong>Seeking:</strong> <%= band.seeking_instruments.join(", ") %></p>
+                    <% end %>
+                    
+                    <% if band.city.present? || band.state.present? %>
+                      <p><strong>Location:</strong> <%= [band.city, band.state].compact.join(", ") %></p>
+                    <% end %>
+                  </div>
+
+                  <%= link_to "View Band", band_path(band), class: "button neon-button is-fullwidth" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="notification is-info has-text-centered">
+          <p>No bands found matching your search criteria.</p>
+          <p>Try adjusting your filters or check back later!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

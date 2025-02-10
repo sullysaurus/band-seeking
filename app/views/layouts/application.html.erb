@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Band Seeking" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%# Preload fonts properly %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <%# Stylesheet with proper as attribute %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "all" %>
+
+    <%# Load FontAwesome from latest version %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <%# JavaScript with defer %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
+    <%# Add description meta tag for SEO %>
+    <meta name="description" content="<%= content_for(:description) || 'Find your perfect band or band member' %>">
+  </head>
+
+  <body>
+    <%= render "shared/navbar" %>
+
+    <div class="container">
+      <% if notice %>
+        <div class="notification is-success" data-controller="notification">
+          <button class="delete" data-action="notification#dismiss"></button>
+          <%= notice %>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="notification is-danger" data-controller="notification">
+          <button class="delete" data-action="notification#dismiss"></button>
+          <%= alert %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <%= render 'shared/footer' %>
+  </body>
+</html>

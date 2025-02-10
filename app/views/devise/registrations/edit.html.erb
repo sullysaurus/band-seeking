@@ -1,0 +1,197 @@
+<div class="container">
+  <div class="columns">
+    <div class="column is-three-quarters">
+      <div class="box">
+        <h2 class="title is-2">Edit Profile</h2>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <%= f.label :avatar, class: "label" %>
+                <div class="control">
+                  <%= f.file_field :avatar, class: "input" %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :username, class: "label" %>
+                <div class="control">
+                  <%= f.text_field :username, class: "input" %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :bio, class: "label" %>
+                <div class="control">
+                  <%= f.text_area :bio, class: "textarea" %>
+                </div>
+              </div>
+
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <%= f.label :city, class: "label" %>
+                    <div class="control">
+                      <%= f.text_field :city, class: "input" %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column">
+                  <div class="field">
+                    <%= f.label :state, class: "label" %>
+                    <div class="control">
+                      <%= f.select :state, 
+                          Band::STATES,
+                          { include_blank: "Select State" },
+                          { class: "select is-fullwidth" } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="field">
+                <%= f.label :instruments_played, class: "label" %>
+                <div class="control">
+                  <%= f.select :instruments_played, 
+                      options_for_select(User::INSTRUMENTS, f.object.instruments_played),
+                      {},
+                      { multiple: true, class: "select is-multiple is-fullwidth" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :looking_for, class: "label" %>
+                <div class="control">
+                  <%= f.select :looking_for,
+                      options_for_select(User::LOOKING_FOR, f.object.looking_for),
+                      { include_blank: "Select what you're looking for" },
+                      { class: "select is-fullwidth" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :experience_level, class: "label" %>
+                <div class="control">
+                  <%= f.select :experience_level,
+                      options_for_select(User::EXPERIENCE_LEVELS, f.object.experience_level),
+                      { include_blank: "Select your experience level" },
+                      { class: "select is-fullwidth" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :commitment_level, class: "label" %>
+                <div class="control">
+                  <%= f.select :commitment_level,
+                      options_for_select(User::COMMITMENT_LEVELS, f.object.commitment_level),
+                      { include_blank: "Select your commitment level" },
+                      { class: "select is-fullwidth" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :practice_frequency, class: "label" %>
+                <div class="control">
+                  <%= f.select :practice_frequency,
+                      options_for_select(User::PRACTICE_FREQUENCY, f.object.practice_frequency),
+                      { include_blank: "Select practice frequency" },
+                      { class: "select is-fullwidth" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <%= f.label :gig_frequency, class: "label" %>
+                <div class="control">
+                  <%= f.select :gig_frequency,
+                      options_for_select(User::GIG_FREQUENCY, f.object.gig_frequency),
+                      { include_blank: "Select gig frequency" },
+                      { class: "select is-fullwidth" } %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :equipment, class: "label" %>
+            <div class="control">
+              <%= f.text_area :equipment, class: "textarea" %>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :additional_notes, class: "label" %>
+            <div class="control">
+              <%= f.text_area :additional_notes, class: "textarea" %>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <%= f.label :instagram_handle, class: "label" %>
+                <div class="control">
+                  <%= f.text_field :instagram_handle, class: "input" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="field">
+                <%= f.label :website_url, class: "label" %>
+                <div class="control">
+                  <%= f.url_field :website_url, class: "input" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :spotify_embed, class: "label" %>
+            <div class="control">
+              <%= f.text_area :spotify_embed, class: "textarea" %>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :youtube_embed, class: "label" %>
+            <div class="control">
+              <%= f.text_area :youtube_embed, class: "textarea" %>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="field">
+            <%= f.label :current_password, class: "label" %>
+            <div class="control">
+              <%= f.password_field :current_password, autocomplete: "current-password", class: "input" %>
+              <p class="help">We need your current password to confirm your changes</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= f.submit "Update Profile", class: "button is-primary" %>
+            </div>
+          </div>
+        <% end %>
+
+        <hr>
+
+        <h3 class="title is-5">Cancel my account</h3>
+        <div class="content">
+          <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), 
+              data: { confirm: "Are you sure? This cannot be undone." }, 
+              method: :delete, 
+              class: "button is-danger" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

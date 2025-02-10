@@ -1,0 +1,6 @@
+<% if band.seeking_instruments.present? %>
+  <p>
+    <strong>Seeking:</strong> 
+    <%= band.seeking_instruments.is_a?(Array) ? band.seeking_instruments.join(", ") : band.seeking_instruments %>
+  </p>
+<% end %> 

@@ -1,0 +1,38 @@
+@use "../base/variables" as *;
+
+.modal-card {
+  border: $border-width solid $black !important;
+  border-radius: $border-radius !important;
+
+  // Modal sections
+  &-head,
+  &-foot {
+    background: $white !important;
+    border-radius: $border-radius !important;
+  }
+
+  &-head {
+    border-bottom: $border-width solid $black !important;
+  }
+
+  &-foot {
+    border-top: $border-width solid $black !important;
+  }
+}
+
+// Image cropper specific styles
+.image-container {
+  max-height: 60vh;
+  overflow: hidden;
+}
+
+#cropperImage {
+  max-width: 100%;
+  max-height: 60vh;
+}
+
+.preview-image {
+  max-width: 300px;
+  border: 2px solid $black;
+  margin-top: 0.5rem;
+} 

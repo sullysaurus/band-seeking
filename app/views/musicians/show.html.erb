@@ -1,0 +1,86 @@
+<div class="profile-container" data-controller="profile">
+  <!-- Header Section with images -->
+  <%= render 'header', musician: @musician %>
+
+  <div class="container profile-content">
+    <div class="columns">
+      <!-- Left Column -->
+      <div class="column is-two-thirds">
+        <!-- Bio Section -->
+        <div class="box section-box">
+          <h2 class="title is-4">About</h2>
+          <%= render 'editable_field', 
+              user: @musician,
+              field: :bio,
+              value: @musician.bio,
+              type: 'textarea',
+              placeholder: "Add a short bio to tell people about yourself..." %>
+        </div>
+
+        <!-- Musical Info -->
+        <div class="box section-box">
+          <h2 class="title is-4">Musical Background</h2>
+          
+          <!-- Instruments -->
+          <div class="field">
+            <label class="label">Instruments</label>
+            <%= render 'editable_field',
+                user: @musician,
+                field: :instruments_played,
+                value: @musician.instruments_played&.join(", "),
+                type: 'select-multiple',
+                options: User::INSTRUMENTS,
+                placeholder: "Add instruments you play..." %>
+          </div>
+
+          <!-- Experience & Goals -->
+          <div class="columns">
+            <div class="column">
+              <%= render 'editable_field',
+                  user: @musician,
+                  field: :experience_level,
+                  value: @musician.experience_level,
+                  type: 'select',
+                  options: User::EXPERIENCE_LEVELS,
+                  placeholder: "Add your experience level..." %>
+            </div>
+            <div class="column">
+              <%= render 'editable_field',
+                  user: @musician,
+                  field: :looking_for,
+                  value: @musician.looking_for,
+                  type: 'select',
+                  options: User::LOOKING_FOR,
+                  placeholder: "Add what you're looking for..." %>
+            </div>
+          </div>
+
+          <!-- Influences -->
+          <div class="field">
+            <label class="label">Influences</label>
+            <div class="tags">
+              <% if @musician.influences.any? %>
+                <% @musician.influences.each do |influence| %>
+                  <span class="tag"><%= influence %></span>
+                <% end %>
+              <% else %>
+                <span class="tag is-light">Add your musical influences...</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Links Section -->
+        <div class="box section-box">
+          <h2 class="title is-4">Music & Social</h2>
+          <%= render 'social_links', musician: @musician %>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="column is-one-third">
+        <%= render 'sidebar', musician: @musician %>
+      </div>
+    </div>
+  </div>
+</div>

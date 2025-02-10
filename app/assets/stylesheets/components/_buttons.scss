@@ -1,0 +1,33 @@
+@use "../base/variables" as *;
+
+.button {
+  background-color: $white !important;
+  color: $black !important;
+  border: $border-width solid $black !important;
+  font-family: $font-family-mono !important;
+  text-transform: uppercase !important;
+  border-radius: $border-radius !important;
+  transition: $transition-base !important;
+  
+  &:hover {
+    background-color: $black !important;
+    color: $white !important;
+  }
+}
+
+.neon-button {
+  background-color: $primary !important;
+  color: $black !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  border: $border-width solid $black !important;
+  transition: $transition-base !important;
+  height: auto !important;
+  padding: 0.5rem 1rem !important;
+  
+  &:hover {
+    background-color: $black !important;
+    color: $primary !important;
+    box-shadow: 0 0 10px $primary !important;
+  }
+} 

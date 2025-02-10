@@ -1,0 +1,48 @@
+@use "../base/variables" as *;
+
+.footer {
+  border-top: $border-width solid $black;
+  background: $white !important;
+  padding: 3rem 1.5rem;
+  margin-top: 3rem;
+
+  &-title {
+    font-family: $font-family-mono !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: $border-width solid $primary;
+    display: inline-block;
+  }
+
+  .content {
+    font-family: $font-family-mono !important;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+
+    .social-link {
+      color: $black;
+      transition: $transition-base;
+
+      &:hover {
+        color: $primary;
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .neon-link {
+    text-decoration: none;
+    color: $black;
+    background: linear-gradient(transparent 60%, $primary 60%);
+    transition: $transition-base;
+
+    &:hover {
+      background: $primary;
+    }
+  }
+} 

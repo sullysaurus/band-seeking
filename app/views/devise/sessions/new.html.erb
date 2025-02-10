@@ -1,0 +1,36 @@
+<div class="box auth-box">
+  <h1 class="title">Sign In</h1>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field">
+      <%= f.label :email, class: "label" %>
+      <div class="control">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :password, class: "label" %>
+      <div class="control">
+        <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
+      </div>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <label class="checkbox">
+          <%= f.check_box :remember_me %>
+          <span>Remember me</span>
+        </label>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.submit "Sign in", class: "button neon-button is-fullwidth" %>
+    </div>
+  <% end %>
+
+  <div class="auth-links">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

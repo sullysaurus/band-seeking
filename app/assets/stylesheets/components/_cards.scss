@@ -1,0 +1,49 @@
+@use "../base/variables" as *;
+
+.box {
+  background: $white;
+  border: $border-width solid $black;
+  border-radius: $border-radius !important;
+  box-shadow: $box-shadow !important;
+  margin: 2rem 0;
+  padding: 2rem;
+}
+
+.mega-card {
+  transition: $transition-base;
+  
+  &-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .icon {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-family: $font-family-mono !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .subtitle {
+    font-family: $font-family-mono !important;
+    opacity: 0.8;
+  }
+}
+
+.welcome-box {
+  border: $border-width solid $black;
+  padding: 4rem 2rem;
+  margin: 2rem 0;
+  background: $white;
+}
+
+.header-box {
+  border: $border-width solid $black;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 900px;
+} 

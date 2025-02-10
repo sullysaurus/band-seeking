@@ -1,0 +1,19 @@
+@use "variables" as *;
+
+// Override Bulma classes with our custom styles
+.button,
+.input,
+.textarea,
+.select select {
+  border-radius: $border-radius !important;
+}
+
+.navbar {
+  background: $black !important;
+}
+
+.box {
+  border-radius: $border-radius !important;
+}
+
+// Add any other Bulma overrides here 

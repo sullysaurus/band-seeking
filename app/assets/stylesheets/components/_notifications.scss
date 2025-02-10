@@ -1,0 +1,35 @@
+@use "../base/variables" as *;
+
+.notification {
+  background: $white !important;
+  border: $border-width solid $black !important;
+  border-radius: $border-radius !important;
+  color: $black !important;
+  margin: 1rem;
+
+  &.is-danger {
+    background: $white !important;
+    border-color: red !important;
+    color: red !important;
+  }
+
+  .delete {
+    background: $black !important;
+
+    &:hover {
+      background: red !important;
+    }
+  }
+}
+
+.error-messages {
+  border: $border-width solid red;
+  padding: 1rem;
+  margin-bottom: 2rem;
+
+  ul {
+    list-style-type: square;
+    margin-left: 2rem;
+    color: red;
+  }
+} 

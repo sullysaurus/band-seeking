@@ -1,0 +1,30 @@
+// All @use statements must come first
+@use "sass:color";
+@use "sass:math";
+@use "sass:meta";
+@use "base/variables";
+@use "base/reset";
+@use "base/typography";
+@use "base/overrides";
+@use "layouts/navbar";
+@use "layouts/footer";
+@use "layouts/forms";
+@use "components/buttons";
+@use "components/cards";
+@use "components/bands";
+@use "components/filters";
+@use "components/notifications";
+@use "components/modals";
+@use "components/auth";
+@use "components/animations";
+@use "bulma/bulma";
+
+// Remove border radius from cards and card images
+.card {
+  border-radius: 0;
+}
+
+.card-image:first-child img,
+.card-image:last-child img {
+  border-radius: 0;
+}

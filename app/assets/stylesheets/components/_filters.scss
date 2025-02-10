@@ -1,0 +1,65 @@
+@use "sass:color";
+@use "../base/variables" as *;
+
+.sticky-filters {
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.filters-scroll {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 1rem;
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: $border-radius;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $black;
+    border-radius: $border-radius;
+    
+    &:hover {
+      background: color.scale($black, $lightness: 20%);
+    }
+  }
+}
+
+.filters-form {
+  .field {
+    margin-bottom: 1.5rem;
+  }
+  
+  .checkboxes-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .filter-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba($black, 0.1);
+    
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+  }
+  
+  .filter-title {
+    font-family: $font-family-mono;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+} 
