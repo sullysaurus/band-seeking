@@ -47,7 +47,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_01_24_000003) do
     t.string "city"
     t.string "state"
     t.string "seeking_instruments", default: [], array: true
-    t.string "influences", default: [], array: true
     t.string "genre"
     t.string "commitment_level"
     t.string "practice_frequency"
@@ -56,35 +55,32 @@ ActiveRecord::Schema[8.0].define(version: 2024_01_24_000003) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["influences"], name: "index_bands_on_influences", using: :gin
     t.index ["name"], name: "index_bands_on_name"
     t.index ["seeking_instruments"], name: "index_bands_on_seeking_instruments", using: :gin
     t.index ["user_id"], name: "index_bands_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.string "email", null: false
+    t.string "encrypted_password", null: false
     t.string "username", null: false
     t.string "city"
     t.string "state"
     t.string "instruments_played", default: [], array: true
-    t.string "influences", default: [], array: true
     t.string "experience_level"
     t.boolean "availability", default: true
-    t.string "aspirations"
     t.string "looking_for"
+    t.string "aspirations"
     t.string "spotify_link"
     t.string "youtube_link"
     t.string "instagram_link"
     t.string "website_url"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["influences"], name: "index_users_on_influences", using: :gin
     t.index ["instruments_played"], name: "index_users_on_instruments_played", using: :gin
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
